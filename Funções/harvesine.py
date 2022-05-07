@@ -1,3 +1,4 @@
+import math
 def haversine(raio, lat1, lon1, lat2, lon2):
     lat1 = lat1 * math.pi / 180
     lon1 = lon1 * math.pi / 180
