@@ -11,16 +11,16 @@ dic_dicas= {}
 dic_mercado_dicas= {}
 while tentativas != 0:
     print ("Um país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas))
-    tentativa= input("Qual seu palpite?: ")  
-    if tentativa not in ["desisto", "dica", "inventario"]:
+    palavra= input("Qual seu palpite?: ")  
+    if palavra not in ["desisto", "dica", "inventario"]:
         tentativas-=1
         #harvesine
         dist= 123
         if dist not in dic_distancia:
-            dic_distancia["Distancia"]= str(dist + "-->" + tentativa)
-        if tentativa == sorteado:
+            dic_distancia["Distancia"]= str(dist + "-->" + palavra)
+        if palavra == sorteado:
             print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
-    elif tentativa == "desisto":
+    elif palavra == "desisto":
         tem_certeza= input("Tem certeza que deseja desistir? [s/n] ")
         if tem_certeza == "s":
             print (">>>Que deselegante desistir, o país era: {0}".format(sorteado))
@@ -29,7 +29,7 @@ while tentativas != 0:
                 tentativas=20
             else: 
                 break
-    elif tentativa == "dica":
+    elif palavra == "dica":
         tentativas-=1
         print ("Mercado de Dicas" + ("\n") + "----------------------------------------"+ ("\n") + "1. Cor da bandeira  - custa 4 tentativas" + ("\n") + "2. Letra da capital - custa 3 tentativas" + ("\n") + "3. Área             - custa 6 tentativas"  + ("\n") + "4. População        - custa 5 tentativas"+ ("\n") + "5. Continente       - custa 7 tentativas"+ ("\n") + "0. Sem dica"+ ("\n") + "----------------------------------------")
         qual_dica= int(input("Escolha sua opção: |0|1|2|3|4|5| "))
@@ -50,7 +50,7 @@ while tentativas != 0:
         elif qual_dica == 5:
             #importar continente do país com a base normalizada
         else:
-    elif tentativa == "inventário":
+    elif palavra == "inventário":
 
         print(dic_distancia)
         print(dic_dicas)
