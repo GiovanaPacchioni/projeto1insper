@@ -9,12 +9,12 @@ lista_distancias_p= []
 dic_distancia= {}
 dic_dicas= {}
 dic_mercado_dicas= {
-    1: "Cor da bandeira"  
-    2: "Letra da capital" 
-    3: "Área"             
-    4: "População"        
-    5: "Continente"       
-    0: "Sem dica"
+    1: "Cor da bandeira",
+    2: "Letra da capital",
+    3: "Área",
+    4: "População",        
+    5: "Continente",       
+    0: "Sem dica",
 }
 while tentativas != 0:
     print ("Um país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas))
@@ -44,7 +44,7 @@ while tentativas != 0:
             print ("Opção inválida")
         if qual_dica == 1:
             if dic_mercado_dicas[qual_dica] not in dic_dicas:
-            tentativas-=4
+                tentativas-=4
             #importar e randomizar cor da bandeira do arquivo com a base normalizada
         elif qual_dica == 2:
             tentativas-=3
