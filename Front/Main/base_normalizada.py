@@ -1,5 +1,5 @@
 from matplotlib.cbook import delete_masked_points
-
+from base_dados import DADOS
 
 def normaliza (DADOS):
     normalizado_dic= {}
@@ -8,3 +8,5 @@ def normaliza (DADOS):
             info['continente']= cont
             normalizado_dic[pais] = info
     return normalizado_dic
+
+dados_normalizados = normaliza(DADOS)

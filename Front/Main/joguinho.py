@@ -1,8 +1,9 @@
 import random 
+from Funcoes import dados_normalizados
 
 print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
 dados= ["Brasil", "México", "Peru"]
-sorteado= random.choice(["Brasil", "México", "Peru"])
+sorteado= random.choice(normalizado_dic[países])
 tentativas= 20
 lista_distancias_p= []
 
