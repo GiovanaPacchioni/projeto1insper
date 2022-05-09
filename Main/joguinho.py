@@ -3,10 +3,10 @@ import random
 from requests import delete 
 from base_normalizada import dados_normalizados
 from Funcoes import haversine
-from projeto1insper.Main.Funcoes import sorteia_pais
+from projeto1insper.Main.Funcoes import sorteia_letra, sorteia_pais
 
 print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
-dados= ["Brasil", "México", "Peru"]
+
 sorteado= random.choice(dados_normalizados)
 tentativas= 20
 lista_distancias_p= []
@@ -41,6 +41,11 @@ while tentativas != 0:
                 tentativas=20
             else: 
                 break
+
+    lista_cor= list(dados_normalizados[sorteado]["bandeira"])
+    lista_cor_nova= []
+    lista_letra= list(dados_normalizados[sorteado]["capital"])
+    lista_letra_nova=[]
     elif palavra == "dica":
         tentativas-=1
         print ("Mercado de Dicas" + ("\n") + "----------------------------------------"+ ("\n") + "1. Cor da bandeira  - custa 4 tentativas" + ("\n") + "2. Letra da capital - custa 3 tentativas" + ("\n") + "3. Área             - custa 6 tentativas"  + ("\n") + "4. População        - custa 5 tentativas"+ ("\n") + "5. Continente       - custa 7 tentativas"+ ("\n") + "0. Sem dica"+ ("\n") + "----------------------------------------")
@@ -51,30 +56,40 @@ while tentativas != 0:
             cond=True
             if qual_dica == 1:
                 while cond:
-                    if len(list(dados_normalizados[sorteado]["bandeira"]))>0:
+                    if len(lista_cor)>0:
                         tentativas-=4
-                        coraleatoria = ([random.randint(0, len(list(dados_normalizados[sorteado]["bandeira"])) - 1)]) #DAR UM NOME NESSA LISTA
-                        del list(dados_normalizados[sorteado]["bandeira"])[list(dados_normalizados[sorteado]["bandeira"]).index(coraleatoria)]
-                        print(coraleatoria)
+                        coraleatoria = ([random.randint(0, len(lista_cor) - 1)]) 
+                        del lista_cor[lista_cor.index(coraleatoria)]
+                        lista_cor_nova.append(coraleatoria)
+                        print ("Lista de cores: {0}".format(lista_cor_nova))
                     else:
                         cond=False
                         dic_mercado_dicas.pop(qual_dica)
+                        print("Acabaram as cores :( ")
         
             elif qual_dica == 2:
                 while cond:
-
-                tentativas-=3
-                #importar o sortear letra e aplicar na base normalizada
+                    if len(lista_letra)>0:
+                        tentativas-=3
+                        letra_capital= ([random.randint(0, len(lista_letra) - 1)]) 
+                        del lista_letra[lista_letra.index(letra_capital)]
+                        lista_letra_nova.append(letra_capital)
+                        print ("Lista de letras: {0}".format(lista_cor_nova))
+                    else:
+                        cond=False
+                        dic_mercado_dicas.pop(qual_dica)
+                        print("Acabaram as letras")
             elif qual_dica == 3:
                 tentativas-=5
                 #importar área do país com a base normalizada
             elif qual_dica == 4:
+                tentativas-=5
                 #importar população do país com a base normalizada
             elif qual_dica == 5:
+                tentativas-=5
                 #importar continente do país com a base normalizada
             else:
     elif palavra == "inventário":
-
         print(dic_distancia)
         print(dic_dicas)
 
