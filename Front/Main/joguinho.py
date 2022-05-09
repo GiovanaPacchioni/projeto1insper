@@ -42,6 +42,7 @@ while tentativas != 0:
     elif palavra == "dica":
         tentativas-=1
         print ("Mercado de Dicas" + ("\n") + "----------------------------------------"+ ("\n") + "1. Cor da bandeira  - custa 4 tentativas" + ("\n") + "2. Letra da capital - custa 3 tentativas" + ("\n") + "3. Área             - custa 6 tentativas"  + ("\n") + "4. População        - custa 5 tentativas"+ ("\n") + "5. Continente       - custa 7 tentativas"+ ("\n") + "0. Sem dica"+ ("\n") + "----------------------------------------")
+        #WHILE DAS DICAS
         qual_dica= int(input("Escolha sua opção: |0|1|2|3|4|5| "))
         while qual_dica not in [0,1,2,3,4,5]:
             print ("Opção inválida")
@@ -50,11 +51,14 @@ while tentativas != 0:
             while cond:
                 if len(list(dados_normalizados[sorteado]["bandeira"]))>0:
                     tentativas-=4
-                    
+                    coraleatoria = ([random.randint(0, len(list(dados_normalizados[sorteado]["bandeira"])) - 1)]) #DAR UM NOME NESSA LISTA
+                    del list(dados_normalizados[sorteado]["bandeira"])[list(dados_normalizados[sorteado]["bandeira"]).index(coraleatoria)]
+                    print(coraleatoria)
                 else:
                     cond=False
+                    
 
-            #importar e randomizar cor da bandeira do arquivo com a base normalizada
+            
         elif qual_dica == 2:
             tentativas-=3
             #importar o sortear letra e aplicar na base normalizada
