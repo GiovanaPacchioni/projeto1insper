@@ -1,3 +1,5 @@
+import random
+import math
 def adiciona_em_ordem(pais, distancia, listaordenada):
     if len(listaordenada) == 0:
         listaordenada.append([pais, distancia])
@@ -22,7 +24,6 @@ def esta_na_lista (pais, lista_p):
         cond=True
     return cond
 
-import math
 def haversine(raio, lat1, lon1, lat2, lon2):
     lat1 = lat1 * math.pi / 180
     lon1 = lon1 * math.pi / 180
@@ -44,7 +45,6 @@ def normaliza (base_dados):
     return normalizado_dic
 
 #Função para a dica de sortear a letra da capital do país
-import random
 def sorteia_letra (palavra, restricao):
     letras_sorteadas= ""
     for letras in palavra:
@@ -55,7 +55,6 @@ def sorteia_letra (palavra, restricao):
     return random.choice(letras_sorteadas)
 
 #Função que inicia o jogo sorteando o país
-import random
 def sorteia_pais (dic_paises):
     lista_paises= []
     for paises,dados in dic_paises.items():

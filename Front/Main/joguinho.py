@@ -50,6 +50,7 @@ while tentativas != 0:
             while cond:
                 if len(list(dados_normalizados[sorteado]["bandeira"]))>0:
                     tentativas-=4
+                    
                 else:
                     cond=False
 
