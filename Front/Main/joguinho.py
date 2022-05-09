@@ -1,9 +1,11 @@
 import random 
-from Funcoes import dados_normalizados
+from base_normalizada import dados_normalizados
+from Funcoes import haversine
+from projeto1insper.Front.Main.Funcoes import sorteia_pais
 
 print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
 dados= ["Brasil", "México", "Peru"]
-sorteado= random.choice(normalizado_dic[países])
+sorteado= random.choice(dados_normalizados)
 tentativas= 20
 lista_distancias_p= []
 
@@ -17,16 +19,16 @@ dic_mercado_dicas= {
     5: "Continente",       
     0: "Sem dica",
 }
+raio= 6371 
 while tentativas != 0:
     print ("Um país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas))
-    palavra= input("Qual seu palpite?: ")  
-    if palavra not in ["desisto", "dica", "inventario"]:
+    palavra= input("Qual seu palpite?: ") 
+    if palavra not in ["desisto", "dica", "inventario"] and palavra in dados_normalizados:
         tentativas-=1
-        #harvesine
-        dist= 123
-        if dist not in dic_distancia:
+        dist= haversine(raio, dados_normalizados[sorteado]['geo']['latitude'], dados_normalizados[sorteado]['geo']['longitude'], dados_normalizados[palavra]['geo']['latitude'], dados_normalizados[palavra]['geo']['longitude'] )
+        if dist > 0 and dist not in dic_distancia:
             dic_distancia["Distancia"]= str(dist + "-->" + palavra)
-        if palavra == sorteado:
+        if dist == 0 and palavra == sorteado:
             print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
     elif palavra == "desisto":
         tem_certeza= input("Tem certeza que deseja desistir? [s/n] ")
@@ -43,9 +45,14 @@ while tentativas != 0:
         qual_dica= int(input("Escolha sua opção: |0|1|2|3|4|5| "))
         while qual_dica not in [0,1,2,3,4,5]:
             print ("Opção inválida")
+        cond=True
         if qual_dica == 1:
-            if dic_mercado_dicas[qual_dica] not in dic_dicas:
-                tentativas-=4
+            while cond:
+                if len(list(dados_normalizados[sorteado]["bandeira"]))>0:
+                    tentativas-=4
+                else:
+                    cond=False
+
             #importar e randomizar cor da bandeira do arquivo com a base normalizada
         elif qual_dica == 2:
             tentativas-=3
