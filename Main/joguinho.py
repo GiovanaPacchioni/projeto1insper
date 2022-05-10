@@ -46,10 +46,12 @@ while tentativas != 0:
     lista_cor_nova= []
     lista_letra= list(dados_normalizados[sorteado]["capital"])
     lista_letra_nova=[]
+    areas= list(dados_normalizados[sorteado]["área"])
     elif palavra == "dica":
         tentativas-=1
         print ("Mercado de Dicas" + ("\n") + "----------------------------------------"+ ("\n") + "1. Cor da bandeira  - custa 4 tentativas" + ("\n") + "2. Letra da capital - custa 3 tentativas" + ("\n") + "3. Área             - custa 6 tentativas"  + ("\n") + "4. População        - custa 5 tentativas"+ ("\n") + "5. Continente       - custa 7 tentativas"+ ("\n") + "0. Sem dica"+ ("\n") + "----------------------------------------")
-        qual_dica= int(input("Escolha sua opção: |0|1|2|3|4|5| "))
+        opcoes= "|0|1|2|3|4|5|"
+        qual_dica= int(input("Escolha sua opção: {0}".format(opcoes)))
         while qual_dica not in [0,1,2,3,4,5]:
             print ("Opção inválida")
         while qual_dica in dic_mercado_dicas:
@@ -65,6 +67,8 @@ while tentativas != 0:
                     else:
                         cond=False
                         dic_mercado_dicas.pop(qual_dica)
+                        opcoes[2]=""
+                        opcoes[3]=""
                         print("Acabaram as cores :( ")
         
             elif qual_dica == 2:
@@ -78,8 +82,12 @@ while tentativas != 0:
                     else:
                         cond=False
                         dic_mercado_dicas.pop(qual_dica)
+                        opcoes[4]=""
+                        opcoes[5]=""
                         print("Acabaram as letras")
             elif qual_dica == 3:
+                print ("A área do país é: {0}".format(areas))
+                dic_mercado_dicas.pop(qual_dica)
                 tentativas-=5
                 #importar área do país com a base normalizada
             elif qual_dica == 4:
