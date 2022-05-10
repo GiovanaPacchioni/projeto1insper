@@ -8,6 +8,7 @@ dados= ["Brasil", "México", "Peru"]
 sorteado= random.choice(dados_normalizados)
 tentativas= 20
 lista_distancias_p= []
+lista_coresdasbandeiras= [list(dados_normalizados[sorteado]["bandeira"])]
 
 dic_distancia= {}
 dic_dicas= {}
@@ -51,8 +52,8 @@ while tentativas != 0:
             while cond:
                 if len(list(dados_normalizados[sorteado]["bandeira"]))>0:
                     tentativas-=4
-                    coraleatoria = ([random.randint(0, len(list(dados_normalizados[sorteado]["bandeira"])) - 1)]) #DAR UM NOME NESSA LISTA
-                    del list(dados_normalizados[sorteado]["bandeira"])[list(dados_normalizados[sorteado]["bandeira"]).index(coraleatoria)]
+                    coraleatoria = ([random.randint(0, len(lista_coresdasbandeiras) - 1)])
+                    del lista_coresdasbandeiras[lista_coresdasbandeiras.index(coraleatoria)]
                     print(coraleatoria)
                 else:
                     cond=False
@@ -61,18 +62,25 @@ while tentativas != 0:
             
         elif qual_dica == 2:
             tentativas-=3
-            #importar o sortear letra e aplicar na base normalizada
+            coraleatoria = ([random.randint(0, len(lista_coresdasbandeiras) - 1)])
+            del lista_coresdasbandeiras[lista_coresdasbandeiras.index(coraleatoria)]
+            print(coraleatoria)
         elif qual_dica == 3:
             tentativas-=5
-            #importar área do país com a base normalizada
+            coraleatoria = ([random.randint(0, len(lista_coresdasbandeiras) - 1)])
+            del lista_coresdasbandeiras[lista_coresdasbandeiras.index(coraleatoria)]
+            print(coraleatoria)
         elif qual_dica == 4:
-            #importar população do país com a base normalizada
+            coraleatoria = ([random.randint(0, len(lista_coresdasbandeiras) - 1)])
+            del lista_coresdasbandeiras[lista_coresdasbandeiras.index(coraleatoria)]
+            print(coraleatoria)
         elif qual_dica == 5:
-            #importar continente do país com a base normalizada
+            coraleatoria = ([random.randint(0, len(lista_coresdasbandeiras) - 1)])
+            del lista_coresdasbandeiras[lista_coresdasbandeiras.index(coraleatoria)]
+            print(coraleatoria)
         else:
-    elif palavra == "inventário":
-
-        print(dic_distancia)
+            if palavra == "inventário":
+                print(dic_distancia)
         print(dic_dicas)
 
 print ("até a próxima!")     
