@@ -1,6 +1,9 @@
 import random 
 from base_normalizada import dados_normalizados
 from Funcoes import haversine
+from Funcoes import haversine, sorteia_letra, sorteia_pais
+from Funcoes import sorteia_letra #Não sei o que eu fiz mas cpa que deu?
+from Funcoes import sorteia_pais
 
 print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
 dados= ["Brasil", "México", "Peru"]
