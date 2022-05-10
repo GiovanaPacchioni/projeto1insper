@@ -3,7 +3,8 @@ import random
 from requests import delete 
 from base_normalizada import dados_normalizados
 from Funcoes import haversine
-from projeto1insper.Main.Funcoes import sorteia_letra, sorteia_pais
+from Funcoes import sorteia_letra
+from Funcoes import sorteia_pais
 
 print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
 
