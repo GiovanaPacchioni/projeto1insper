@@ -3,16 +3,16 @@ from base_normalizada import dados_normalizados
 from Funcoes import *
 
 print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
-sorteado= random.choice(dados_normalizados)
+sorteado= sorteia_pais(dados_normalizados)
 tentativas= 20
 lista_cor= list(dados_normalizados[sorteado]["bandeira"])
-lista_cor_nova= ''
+lista_cor_nova= []
 lista_letra= list(dados_normalizados[sorteado]["capital"])
 lista_letra_nova=[]
-areas= list(dados_normalizados[sorteado]["área"])
+areas= (dados_normalizados[sorteado]["area"])
 lista_distancias_p= []
-populacao= list(dados_normalizados[sorteado]["população"])
-continente= list(dados_normalizados[sorteado]["continente"])
+populacao= (dados_normalizados[sorteado]["populacao"])
+continente= (dados_normalizados[sorteado]["continente"])
 dic_distancia= {}
 dic_mercado_dicas= {
     1: "Cor da bandeira",
@@ -36,6 +36,7 @@ while tentativas != 0:
     elif palavra == "desisto":
         tem_certeza= input("Tem certeza que deseja desistir? [s/n] ")
         if tem_certeza == "s":
+            tentativas=0
             print (">>>Que deselegante desistir, o país era: {0}".format(sorteado))
             joga_dnv= input("Quer jogar novamente?: ")
             if joga_dnv== "s":
@@ -44,16 +45,17 @@ while tentativas != 0:
                 break
     elif palavra == "dica":
         print ("Mercado de Dicas" + ("\n") + "----------------------------------------"+ ("\n") + "1. Cor da bandeira  - custa 4 tentativas" + ("\n") + "2. Letra da capital - custa 3 tentativas" + ("\n") + "3. Área             - custa 6 tentativas"  + ("\n") + "4. População        - custa 5 tentativas"+ ("\n") + "5. Continente       - custa 7 tentativas"+ ("\n") + "0. Sem dica"+ ("\n") + "----------------------------------------")
-        opcoes= "|0|1|2|3|4|5|"
+        opcoes= "|0|1|2|3|4|5|:"
         qual_dica= int(input("Escolha sua opção: {0}".format(opcoes)))
         while qual_dica not in [0,1,2,3,4,5]:
             print ("Opção inválida")
         if qual_dica == 1:
+            cond=True
             while cond:
                 if len(lista_cor)>0:
                     tentativas-=4
                     coraleatoria = ([random.randint(0, len(lista_cor) - 1)]) 
-                    del lista_cor[lista_cor.index(coraleatoria)]
+                    lista_cor.pop(lista_cor[lista_cor.index(coraleatoria)])
                     lista_cor_nova.append(coraleatoria)
                     print ("Lista de cores: {0}".format(lista_cor_nova))
                 else:
