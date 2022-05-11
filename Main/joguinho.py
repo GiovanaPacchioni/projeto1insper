@@ -42,7 +42,6 @@ while tentativas != 0:
     elif palavra == "dica":
         tentativas-=1
         print ("Mercado de Dicas" + ("\n") + "----------------------------------------"+ ("\n") + "1. Cor da bandeira  - custa 4 tentativas" + ("\n") + "2. Letra da capital - custa 3 tentativas" + ("\n") + "3. Área             - custa 6 tentativas"  + ("\n") + "4. População        - custa 5 tentativas"+ ("\n") + "5. Continente       - custa 7 tentativas"+ ("\n") + "0. Sem dica"+ ("\n") + "----------------------------------------")
-        #WHILE DAS DICAS
         qual_dica= int(input("Escolha sua opção: |0|1|2|3|4|5| "))
         while qual_dica not in [0,1,2,3,4,5]:
             print ("Opção inválida")
@@ -57,8 +56,6 @@ while tentativas != 0:
                     break
                 else:
                     cond=False
-                    
-
             
         elif qual_dica == 2:
             tentativas-=3
