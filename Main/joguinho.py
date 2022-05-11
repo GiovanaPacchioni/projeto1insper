@@ -5,6 +5,11 @@ from Funcoes import *
 print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
 sorteado= random.choice(dados_normalizados)
 tentativas= 20
+lista_cor= list(dados_normalizados[sorteado]["bandeira"])
+lista_cor_nova= []
+lista_letra= list(dados_normalizados[sorteado]["capital"])
+lista_letra_nova=[]
+areas= list(dados_normalizados[sorteado]["área"])
 lista_distancias_p= []
 dic_distancia= {}
 dic_dicas= {}
@@ -36,13 +41,6 @@ while tentativas != 0:
                 tentativas=20
             else: 
                 break
-    
-    lista_cor= list(dados_normalizados[sorteado]["bandeira"])
-    lista_cor_nova= []
-    lista_letra= list(dados_normalizados[sorteado]["capital"])
-    lista_letra_nova=[]
-    areas= list(dados_normalizados[sorteado]["área"])
-
     elif palavra == "dica":
         tentativas-=1
         print ("Mercado de Dicas" + ("\n") + "----------------------------------------"+ ("\n") + "1. Cor da bandeira  - custa 4 tentativas" + ("\n") + "2. Letra da capital - custa 3 tentativas" + ("\n") + "3. Área             - custa 6 tentativas"  + ("\n") + "4. População        - custa 5 tentativas"+ ("\n") + "5. Continente       - custa 7 tentativas"+ ("\n") + "0. Sem dica"+ ("\n") + "----------------------------------------")
