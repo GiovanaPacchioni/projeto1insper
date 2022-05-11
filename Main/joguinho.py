@@ -27,7 +27,7 @@ while tentativas != 0:
         tentativas-=1
         dist= haversine(raio, dados_normalizados[sorteado]['geo']['latitude'], dados_normalizados[sorteado]['geo']['longitude'], dados_normalizados[palavra]['geo']['latitude'], dados_normalizados[palavra]['geo']['longitude'] )
         if dist > 0 and dist not in dic_distancia:
-            dic_distancia["Distancia"]= str(dist + "-->" + palavra)
+            dic_distancia["Distancia"]= str(dist) + "-->" + str(palavra)
         if dist == 0 and palavra == sorteado:
             print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
     elif palavra == "desisto":
@@ -82,5 +82,4 @@ while tentativas != 0:
             if palavra == "inventário":
                 print(dic_distancia)
         print(dic_dicas)
-
 print ("até a próxima!")     
