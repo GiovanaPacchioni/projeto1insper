@@ -82,17 +82,20 @@ while tentativas != 0:
                         opcoes[5]=""
                         print("Acabaram as letras")
             elif qual_dica == 3:
-                print ("A área do país é: {0}".format(areas))
-                dic_mercado_dicas.pop(qual_dica)
+                if qual_dica in dic_mercado_dicas:
+                    print ("A área do país é: {0}".format(areas))
+                    del dic_mercado_dicas[qual_dica]
                 tentativas-=5
             elif qual_dica == 4:
-                coraleatoria = ([random.randint(0, len(populacao) - 1)])
-                del populacao[populacao.index(coraleatoria)]
-                print(coraleatoria)
+                if qual_dica in dic_mercado_dicas:
+                    coraleatoria = ([random.randint(0, len(populacao) - 1)])
+                    del populacao[populacao.index(coraleatoria)]
+                    print(coraleatoria)
             elif qual_dica == 5:
-                coraleatoria = ([random.randint(0, len(continente) - 1)])
-                del continente[continente.index(coraleatoria)]
-                print(coraleatoria)
+                if qual_dica in dic_mercado_dicas:
+                    coraleatoria = ([random.randint(0, len(continente) - 1)])
+                    del continente[continente.index(coraleatoria)]
+                    print(coraleatoria)
             else:
                 if palavra == "inventário":
                     print(dic_distancia)
