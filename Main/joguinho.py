@@ -1,13 +1,10 @@
 import random 
 from base_normalizada import dados_normalizados
-from Funcoes import haversine
-from Funcoes import haversine, sorteia_letra, sorteia_pais
-from Funcoes import sorteia_letra #Não sei o que eu fiz mas cpa que deu?
-from Funcoes import sorteia_pais
+from Funcoes import *
 
 print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
 dados= ["Brasil", "México", "Peru"]
-sorteado= random.choice(dados_normalizados)
+sorteado= sorteia_pais(dados_normalizados)
 tentativas= 20
 lista_distancias_p= []
 lista_coresdasbandeiras= [list(dados_normalizados[sorteado]["bandeira"])]
@@ -52,11 +49,12 @@ while tentativas != 0:
         cond=True
         if qual_dica == 1:
             while cond:
-                if len(list(dados_normalizados[sorteado]["bandeira"]))>0:
+                if len(lista_coresdasbandeiras)>0:
                     tentativas-=4
                     coraleatoria = ([random.randint(0, len(lista_coresdasbandeiras) - 1)])
                     del lista_coresdasbandeiras[lista_coresdasbandeiras.index(coraleatoria)]
                     print(coraleatoria)
+                    break
                 else:
                     cond=False
                     
