@@ -3,12 +3,9 @@ from base_normalizada import dados_normalizados
 from Funcoes import *
 
 print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
-dados= ["Brasil", "México", "Peru"]
-sorteado= sorteia_pais(dados_normalizados)
+sorteado= random.choice(dados_normalizados)
 tentativas= 20
 lista_distancias_p= []
-lista_coresdasbandeiras= [list(dados_normalizados[sorteado]["bandeira"])]
-
 dic_distancia= {}
 dic_dicas= {}
 dic_mercado_dicas= {
@@ -39,28 +36,41 @@ while tentativas != 0:
                 tentativas=20
             else: 
                 break
+    
+    lista_cor= list(dados_normalizados[sorteado]["bandeira"])
+    lista_cor_nova= []
+    lista_letra= list(dados_normalizados[sorteado]["capital"])
+    lista_letra_nova=[]
+    areas= list(dados_normalizados[sorteado]["área"])
+
     elif palavra == "dica":
         tentativas-=1
         print ("Mercado de Dicas" + ("\n") + "----------------------------------------"+ ("\n") + "1. Cor da bandeira  - custa 4 tentativas" + ("\n") + "2. Letra da capital - custa 3 tentativas" + ("\n") + "3. Área             - custa 6 tentativas"  + ("\n") + "4. População        - custa 5 tentativas"+ ("\n") + "5. Continente       - custa 7 tentativas"+ ("\n") + "0. Sem dica"+ ("\n") + "----------------------------------------")
-        qual_dica= int(input("Escolha sua opção: |0|1|2|3|4|5| "))
+        opcoes= "|0|1|2|3|4|5|"
+        qual_dica= int(input("Escolha sua opção: {0}".format(opcoes)))
         while qual_dica not in [0,1,2,3,4,5]:
             print ("Opção inválida")
-        cond=True
-        if qual_dica == 1:
-            while cond:
-                if len(lista_coresdasbandeiras)>0:
-                    tentativas-=4
-                    coraleatoria = ([random.randint(0, len(lista_coresdasbandeiras) - 1)])
-                    del lista_coresdasbandeiras[lista_coresdasbandeiras.index(coraleatoria)]
-                    print(coraleatoria)
-                    break
-                else:
-                    cond=False
+        while qual_dica in dic_mercado_dicas:
+            cond=True
+            if qual_dica == 1:
+                while cond:
+                    if len(lista_cor)>0:
+                        tentativas-=4
+                        coraleatoria = ([random.randint(0, len(lista_cor) - 1)]) 
+                        del lista_cor[lista_cor.index(coraleatoria)]
+                        lista_cor_nova.append(coraleatoria)
+                        print ("Lista de cores: {0}".format(lista_cor_nova))
+                    else:
+                        cond=False
+                        dic_mercado_dicas.pop(qual_dica)
+                        opcoes[2]=""
+                        opcoes[3]=""
+                        print("Acabaram as cores :( ")
             
         elif qual_dica == 2:
             tentativas-=3
-            coraleatoria = ([random.randint(0, len(lista_coresdasbandeiras) - 1)])
-            del lista_coresdasbandeiras[lista_coresdasbandeiras.index(coraleatoria)]
+            coraleatoria = ([random.randint(0, len(lista_letra) - 1)])
+            del lista_letra[lista_letra.index(coraleatoria)]
             print(coraleatoria)
         elif qual_dica == 3:
             tentativas-=5
