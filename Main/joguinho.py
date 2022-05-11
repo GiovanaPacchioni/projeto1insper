@@ -11,6 +11,8 @@ lista_letra= list(dados_normalizados[sorteado]["capital"])
 lista_letra_nova=[]
 areas= list(dados_normalizados[sorteado]["área"])
 lista_distancias_p= []
+populacao= list(dados_normalizados[sorteado]["população"])
+continente= list(dados_normalizados[sorteado]["continente"])
 dic_distancia= {}
 dic_dicas= {}
 dic_mercado_dicas= {
@@ -79,20 +81,20 @@ while tentativas != 0:
                         opcoes[4]=""
                         opcoes[5]=""
                         print("Acabaram as letras")
-        elif qual_dica == 3:
-            print ("A área do país é: {0}".format(areas))
-            dic_mercado_dicas.pop(qual_dica)
-            tentativas-=5
-        elif qual_dica == 4:
-            coraleatoria = ([random.randint(0, len(lista_coresdasbandeiras) - 1)])
-            del lista_coresdasbandeiras[lista_coresdasbandeiras.index(coraleatoria)]
-            print(coraleatoria)
-        elif qual_dica == 5:
-            coraleatoria = ([random.randint(0, len(lista_coresdasbandeiras) - 1)])
-            del lista_coresdasbandeiras[lista_coresdasbandeiras.index(coraleatoria)]
-            print(coraleatoria)
-        else:
-            if palavra == "inventário":
-                print(dic_distancia)
-        print(dic_dicas)
+            elif qual_dica == 3:
+                print ("A área do país é: {0}".format(areas))
+                dic_mercado_dicas.pop(qual_dica)
+                tentativas-=5
+            elif qual_dica == 4:
+                coraleatoria = ([random.randint(0, len(populacao) - 1)])
+                del populacao[populacao.index(coraleatoria)]
+                print(coraleatoria)
+            elif qual_dica == 5:
+                coraleatoria = ([random.randint(0, len(continente) - 1)])
+                del continente[continente.index(coraleatoria)]
+                print(coraleatoria)
+            else:
+                if palavra == "inventário":
+                    print(dic_distancia)
+            print(dic_dicas)
 print ("até a próxima!")     
