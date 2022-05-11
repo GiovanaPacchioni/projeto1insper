@@ -67,20 +67,20 @@ while tentativas != 0:
                         opcoes[3]=""
                         print("Acabaram as cores :( ")
             
-        elif qual_dica == 2:
-            while cond:
-                if len(lista_letra)>0:
-                    tentativas-=3
-                    letra_capital= ([random.randint(0, len(lista_letra) - 1)]) 
-                    del lista_letra[lista_letra.index(letra_capital)]
-                    lista_letra_nova.append(letra_capital)
-                    print ("Lista de letras: {0}".format(lista_letra_nova))
-                else:
-                    cond=False
-                    dic_mercado_dicas.pop(qual_dica)
-                    opcoes[4]=""
-                    opcoes[5]=""
-                    print("Acabaram as letras")
+            elif qual_dica == 2:
+                while cond:
+                    if len(lista_letra)>0:
+                        tentativas-=3
+                        letra_capital= ([random.randint(0, len(lista_letra) - 1)]) 
+                        del lista_letra[lista_letra.index(letra_capital)]
+                        lista_letra_nova.append(letra_capital)
+                        print ("Lista de letras: {0}".format(lista_letra_nova))
+                    else:
+                        cond=False
+                        dic_mercado_dicas.pop(qual_dica)
+                        opcoes[4]=""
+                        opcoes[5]=""
+                        print("Acabaram as letras")
         elif qual_dica == 3:
             print ("A área do país é: {0}".format(areas))
             dic_mercado_dicas.pop(qual_dica)
