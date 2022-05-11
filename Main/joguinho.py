@@ -78,7 +78,7 @@ while tentativas != 0:
                     del dic_mercado_dicas[qual_dica]
                     opcoes[4]=""
                     opcoes[5]=""
-                    print("Acabaram as letras")
+                    print("Acabaram as letras :( ")
         elif qual_dica == 3:
             if qual_dica in dic_mercado_dicas:
                 print ("A área do país é: {0}".format(areas))
