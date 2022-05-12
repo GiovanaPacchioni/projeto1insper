@@ -30,7 +30,7 @@ dic_mercado_dicas= {
     5: "Continente",       
     0: "Sem dica",
 }
-coraleatoria = ([random.choices(lista_cor)]) 
+coraleatoria = random.choices(lista_cor) 
 print (lista_cor)
 print (coraleatoria)
 raio= 6371 
@@ -40,6 +40,8 @@ for cor, percentual in dic_tds_cor.items():
 while tentativas != 0:
     print ("Um país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas))
     palavra= input("Qual seu palpite?: ") 
+    if palavra not in ["desisto", "dica", "inventario"] and palavra not in dados_normalizados:
+        print("país desconehcido")
     if palavra not in ["desisto", "dica", "inventario"] and palavra in dados_normalizados:
         tentativas-=1
         dist= haversine(raio, dados_normalizados[sorteado]['geo']['latitude'], dados_normalizados[sorteado]['geo']['longitude'], dados_normalizados[palavra]['geo']['latitude'], dados_normalizados[palavra]['geo']['longitude'] )
@@ -52,8 +54,8 @@ while tentativas != 0:
         tem_certeza= input("Tem certeza que deseja desistir? [s/n] ")
         if tem_certeza == "s":
             tentativas=0
-            print (">>>Que deselegante desistir, o país era: {0}".format(sorteado))
-            joga_dnv= input("Quer jogar novamente?: ")
+            print (">>>Que deselegante desistir, o país era: {0}".format(sorteado) + ("\n"))
+            joga_dnv= input("Quer jogar novamente? [s/n]: ")
             if joga_dnv== "s":
                 tentativas=20
             else: 
@@ -69,8 +71,8 @@ while tentativas != 0:
             while cond:
                 if len(lista_cor)>0:
                     tentativas-=4
-                    coraleatoria = ([random.choices(lista_cor)]) 
-                    lista_cor.pop(coraleatoria)
+                    coraleatoria = random.choices(lista_cor)
+                    lista_cor.pop(coraleatoria) #ERRO: TypeError: 'list' object cannot be interpreted as an integer
                     dic_dicas["Dicas: "]= dic_cor
                     print(dic_dicas)
                 else:
