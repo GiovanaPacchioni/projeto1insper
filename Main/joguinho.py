@@ -68,21 +68,21 @@ while tentativas != 0:
                     tentativas-=4
                     
                     coraleatoria = ([random.choices(lista_cor)]) 
-                    lista_cor.pop(coraleatoria)
+                    lista_cor.pop(coraleatoria) #isso n funciona pq coraleatoria n é um elemento da lista
                     dic_dicas["Dicas: "]= dic_cor
                     print(dic_dicas)
                 else:
                     cond=False
                     del dic_mercado_dicas[qual_dica]
-                    opcoes[2]=""
-                    opcoes[3]=""
+                    opcoes[2]="" #isso n funciona
+                    opcoes[3]="" #isso n funciona
                     print("Acabaram as cores :( ")
             
         elif qual_dica == 2:
             while cond:
                 if len(lista_letra)>0:
                     tentativas-=3
-                    letra_capital= ([random.randint(0, len(lista_letra) - 1)]) 
+                    letra_capital= ([random.randint(0, len(lista_letra) - 1)])
                     del lista_letra[lista_letra.index(letra_capital)]
                     lista_letra_nova.append(letra_capital)
                     dic_dicas["Dicas: "]= dic_letra
@@ -90,32 +90,32 @@ while tentativas != 0:
                 else:
                     cond=False
                     del dic_mercado_dicas[qual_dica]
-                    opcoes[4]=""
-                    opcoes[5]=""
+                    opcoes[4]="" #isso n funciona
+                    opcoes[5]="" #isso n funciona
                     print("Acabaram as letras :( ")
         elif qual_dica == 3:
             if qual_dica in dic_mercado_dicas:
                 dic_dicas["Dicas: "]= dic_area
                 print (dic_dicas)
                 del dic_mercado_dicas[qual_dica]
-                opcoes[6]=""
-                opcoes[7]=""
+                opcoes[6]="" #isso n funciona
+                opcoes[7]="" #isso n funciona
                 tentativas-=6
         elif qual_dica == 4:
             if qual_dica in dic_mercado_dicas:
                 print ("A população do país é: {0}".format(populacao))
                 del dic_mercado_dicas[qual_dica]
                 dic_dicas["Dicas: "]= dic_populacao
-                opcoes[8]=""
-                opcoes[9]=""
+                opcoes[8]=""  #isso n funciona
+                opcoes[9]="" #isso n funciona
                 tentativas-=5
         elif qual_dica == 5:
             if qual_dica in dic_mercado_dicas:
                 print("O continente do país é: {0}".format(continente))
                 del dic_mercado_dicas[qual_dica]
                 dic_dicas["Dicas: "]= dic_continente
-                opcoes[10]=""
-                opcoes[11]=""
+                opcoes[10]="" #isso n funciona
+                opcoes[11]="" #isso n funciona
                 tentativas-=7
     elif palavra == "inventario":
             print(dic_distancia)
