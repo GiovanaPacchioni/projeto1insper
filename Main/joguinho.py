@@ -68,7 +68,7 @@ while tentativas != 0:
                     tentativas-=4
                     
                     coraleatoria = ([random.choices(lista_cor)]) 
-                    lista_cor.pop(coraleatoria) #isso n funciona pq coraleatoria n é um elemento da lista
+                    lista_cor.pop(coraleatoria) #isso n funciona pq coraleatoria é uma lista
                     dic_dicas["Dicas: "]= dic_cor
                     print(dic_dicas)
                 else:
