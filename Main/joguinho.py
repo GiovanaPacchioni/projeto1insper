@@ -1,20 +1,27 @@
+#Guia das cores para as faixas de distancias (usar if para categorizar)
+from termcolor import colored
+#Exemplo
+print(colored('Error Test!!!', 'red'))
+print(colored('Warning Test!!!', 'yellow'))
+print(colored('Success Test!!!', 'green'))
+
 import random 
 from base_normalizada import dados_normalizados
 from Funcoes import *
 
 print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
-sorteado= sorteia_pais(dados_normalizados)
+sorteado= sorteia_pais(dados_normalizados) #Linhas para colocar dentro do while
 tentativas= 20
-dic_tds_cor=(dados_normalizados[sorteado]["bandeira"])
+dic_tds_cor=(dados_normalizados[sorteado]["bandeira"])#Linhas para colocar dentro do while
 lista_cor=[]
-lista_cor= list(dados_normalizados[sorteado]["bandeira"])
+lista_cor= list(dados_normalizados[sorteado]["bandeira"])#Linhas para colocar dentro do while
 lista_cor_nova= []
-lista_letra= list(dados_normalizados[sorteado]["capital"])
+lista_letra= list(dados_normalizados[sorteado]["capital"])#Linhas para colocar dentro do while
 lista_letra_nova= []
-areas= (dados_normalizados[sorteado]["area"])
+areas= (dados_normalizados[sorteado]["area"])#Linhas para colocar dentro do while
 lista_distancias_p= []
-populacao= (dados_normalizados[sorteado]["populacao"])
-continente= (dados_normalizados[sorteado]["continente"])
+populacao= (dados_normalizados[sorteado]["populacao"])#Linhas para colocar dentro do while
+continente= (dados_normalizados[sorteado]["continente"])#Linhas para colocar dentro do while
 dic_distancia= {}
 dic_dicas= {}   
 dic_cor= {"- Cores da bandeira": lista_cor_nova}
