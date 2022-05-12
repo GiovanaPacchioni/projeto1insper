@@ -13,9 +13,7 @@ print ("============================" + ("\n") + "|                            |
 sorteado= sorteia_pais(dados_normalizados) #Linhas para colocar dentro do while
 tentativas= 20
 dic_tds_cor=(dados_normalizados[sorteado]["bandeira"])#Linhas para colocar dentro do while
-lista_cor=[]
-lista_cor= list(dados_normalizados[sorteado]["bandeira"])#Linhas para colocar dentro do while
-lista_cor_nova= []
+lista_cor_possivel=[]
 lista_letra= list(dados_normalizados[sorteado]["capital"])#Linhas para colocar dentro do while
 lista_letra_nova= []
 areas= (dados_normalizados[sorteado]["area"])#Linhas para colocar dentro do while
@@ -24,7 +22,7 @@ populacao= (dados_normalizados[sorteado]["populacao"])#Linhas para colocar dentr
 continente= (dados_normalizados[sorteado]["continente"])#Linhas para colocar dentro do while
 dic_distancia= {}
 dic_dicas= {}   
-dic_cor= {"- Cores da bandeira": lista_cor_nova}
+dic_cor= {"- Cores da bandeira": lista_cor_possivel}
 dic_letra= {"- Letras da capital": lista_letra_nova}
 dic_area= {"- Área": areas}
 dic_populacao= {"- População": populacao}
@@ -38,20 +36,24 @@ dic_mercado_dicas= {
     0: "Sem dica",
 }
 raio= 6371 
+pais_utilizado= []
 for cor, percentual in dic_tds_cor.items():
-    if percentual > 0:
-        lista_cor.append(cor)
+    if percentual > 0 and cor != "outras":
+        lista_cor_possivel.append(cor)
+print (lista_cor_possivel)
 while tentativas != 0:
     print ("Um país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas))
     palavra= input("Qual seu palpite?: ") 
     if palavra not in ["desisto", "dica", "inventario"] and palavra in dados_normalizados:
-        tentativas-=1
         dist= haversine(raio, dados_normalizados[sorteado]['geo']['latitude'], dados_normalizados[sorteado]['geo']['longitude'], dados_normalizados[palavra]['geo']['latitude'], dados_normalizados[palavra]['geo']['longitude'] )
         if dist > 0 and dist not in dic_distancia:
+            tentativas-=1
+            pais_utilizado.append(palavra)
             #lista das cores das distancias (0> and <1000 = azul  / 1000> and 2000< = amarelo / 2000> and 5000< = vermelho / 5000> and 10000< = rosa/roxo / 10000> = cinza )
-            dic_distancia["Distancia"]= (str(int(dist))+ " --> " + str(palavra))
             dic_distancia["Distancia"]= str(dist) + "-->" + str(palavra)
             print(dic_distancia)
+        elif esta_na_lista(palavra, pais_utilizado): #Inserindo a função está na lista, se estiver pedir para o joagdor escolher outro
+            print ("Você já escolheu esse país, pensa em outra aí")
         elif dist == 0 and palavra == sorteado:
             print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
     elif palavra == "desisto":
@@ -71,21 +73,19 @@ while tentativas != 0:
         while qual_dica not in [0,1,2,3,4,5]:
             print ("Opção inválida")
         if qual_dica == 1:
-            cond=True
-            while cond:
-                if len(lista_cor)>0:
-                    tentativas-=4
-                    
-                    coraleatoria = ([random.choices(lista_cor)]) 
-                    lista_cor.pop(coraleatoria) #isso n funciona pq coraleatoria é uma lista
-                    dic_dicas["Dicas: "]= dic_cor
-                    print(dic_dicas)
-                else:
-                    cond=False
-                    del dic_mercado_dicas[qual_dica]
-                    opcoes[2]="" #isso n funciona
-                    opcoes[3]="" #isso n funciona
-                    print("Acabaram as cores :( ")
+            if len(lista_cor_possivel)>0:
+                tentativas-=4
+                coraleatoria = random.choice(lista_cor_possivel)
+                print (coraleatoria) 
+                lista_cor_possivel.remove(coraleatoria) 
+                print (lista_cor_possivel)
+                dic_dicas["Dicas: "]= dic_cor
+                print(dic_dicas)
+            else:
+                del dic_mercado_dicas[qual_dica]
+                opcoes[2]="" #isso n funciona
+                opcoes[3]="" #isso n funciona
+                print("Acabaram as cores :( ")
             
         elif qual_dica == 2:
             while cond:
