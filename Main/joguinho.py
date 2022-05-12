@@ -48,6 +48,8 @@ while tentativas != 0:
         tentativas-=1
         dist= haversine(raio, dados_normalizados[sorteado]['geo']['latitude'], dados_normalizados[sorteado]['geo']['longitude'], dados_normalizados[palavra]['geo']['latitude'], dados_normalizados[palavra]['geo']['longitude'] )
         if dist > 0 and dist not in dic_distancia:
+            #lista das cores das distancias (0> and <1000 = azul  / 1000> and 2000< = amarelo / 2000> and 5000< = vermelho / 5000> and 10000< = rosa/roxo / 10000> = cinza )
+            dic_distancia["Distancia"]= (str(int(dist))+ " --> " + str(palavra))
             dic_distancia["Distancia"]= str(dist) + "-->" + str(palavra)
             print(dic_distancia)
         elif dist == 0 and palavra == sorteado:
