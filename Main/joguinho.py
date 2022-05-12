@@ -37,96 +37,104 @@ dic_mercado_dicas= {
 }
 raio= 6371 
 pais_utilizado= []
+lista_distancia= []
 for cor, percentual in dic_tds_cor.items():
     if percentual > 0 and cor != "outras":
         lista_cor_possivel.append(cor)
 print (lista_cor_possivel)
-while tentativas != 0:
-    print ("Um país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas))
-    palavra= input("Qual seu palpite?: ") 
-    if palavra not in ["desisto", "dica", "inventario"] and palavra in dados_normalizados:
-        dist= haversine(raio, dados_normalizados[sorteado]['geo']['latitude'], dados_normalizados[sorteado]['geo']['longitude'], dados_normalizados[palavra]['geo']['latitude'], dados_normalizados[palavra]['geo']['longitude'] )
-        if dist > 0 and dist not in dic_distancia:
-            tentativas-=1
-            pais_utilizado.append(palavra)
-            #lista das cores das distancias (0> and <1000 = azul  / 1000> and 2000< = amarelo / 2000> and 5000< = vermelho / 5000> and 10000< = rosa/roxo / 10000> = cinza )
-            dic_distancia["Distancia"]= str(dist) + "-->" + str(palavra)
-            print(dic_distancia)
-        elif esta_na_lista(palavra, pais_utilizado): #Inserindo a função está na lista, se estiver pedir para o joagdor escolher outro
-            print ("Você já escolheu esse país, pensa em outra aí")
-        elif dist == 0 and palavra == sorteado:
-            print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
-    elif palavra == "desisto":
-        tem_certeza= input("Tem certeza que deseja desistir? [s/n] ")
-        if tem_certeza == "s":
-            tentativas=0
-            print (">>>Que deselegante desistir, o país era: {0}".format(sorteado))
-            joga_dnv= input("Quer jogar novamente?: ")
-            if joga_dnv== "s":
-                tentativas=20
-            else: 
-                break
-    elif palavra == "dica":
-        print ("Mercado de Dicas" + ("\n") + "----------------------------------------"+ ("\n") + "1. Cor da bandeira  - custa 4 tentativas" + ("\n") + "2. Letra da capital - custa 3 tentativas" + ("\n") + "3. Área             - custa 6 tentativas"  + ("\n") + "4. População        - custa 5 tentativas"+ ("\n") + "5. Continente       - custa 7 tentativas"+ ("\n") + "0. Sem dica"+ ("\n") + "----------------------------------------")
-        opcoes= "[0|1|2|3|4|5]: "
-        qual_dica= int(input("Escolha sua opção: {0}".format(opcoes)))
-        while qual_dica not in [0,1,2,3,4,5]:
-            print ("Opção inválida")
-        if qual_dica == 1:
-            if len(lista_cor_possivel)>0:
-                tentativas-=4
-                coraleatoria = random.choice(lista_cor_possivel)
-                print (coraleatoria) 
-                lista_cor_possivel.remove(coraleatoria) 
-                print (lista_cor_possivel)
-                dic_dicas["Dicas: "]= dic_cor
-                print(dic_dicas)
-            else:
-                del dic_mercado_dicas[qual_dica]
-                opcoes[2]="" #isso n funciona
-                opcoes[3]="" #isso n funciona
-                print("Acabaram as cores :( ")
-            
-        elif qual_dica == 2:
-            while cond:
-                if len(lista_letra)>0:
-                    tentativas-=3
-                    letra_capital= ([random.randint(0, len(lista_letra) - 1)])
-                    del lista_letra[lista_letra.index(letra_capital)]
-                    lista_letra_nova.append(letra_capital)
-                    dic_dicas["Dicas: "]= dic_letra
-                    print ("Lista de letras: {0}".format(lista_letra_nova))
+joga_dnv= "s" #começando com a condição verdade
+while joga_dnv == 's':
+    while tentativas != 0:
+        print ("Um país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas))
+        palavra= input("Qual seu palpite?: ") 
+        if palavra not in ["desisto", "dica", "inventario"] and palavra in dados_normalizados:
+            dist= haversine(raio, dados_normalizados[sorteado]['geo']['latitude'], dados_normalizados[sorteado]['geo']['longitude'], dados_normalizados[palavra]['geo']['latitude'], dados_normalizados[palavra]['geo']['longitude'] )
+            if dist > 0 and dist not in dic_distancia:
+                tentativas-=1
+                pais_utilizado.append(palavra)
+                #lista das cores das distancias (0> and <1000 = azul  / 1000> and 2000< = amarelo / 2000> and 5000< = vermelho / 5000> and 10000< = rosa/roxo / 10000> = cinza )
+                lista_distancia= adiciona_em_ordem(palavra, dist, pais_utilizado)
+                print(lista_distancia)
+            elif esta_na_lista(palavra, pais_utilizado): #Inserindo a função está na lista, se estiver pedir para o joagdor escolher outro
+                print ("Você já escolheu esse país, pensa em outra aí")
+            elif dist == 0 and palavra == sorteado:
+                print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
+        elif palavra == "desisto":
+            tem_certeza= input("Tem certeza que deseja desistir? [s/n] ")
+            if tem_certeza == "s":
+                tentativas=0
+                print (">>>Que deselegante desistir, o país era: {0}".format(sorteado))
+                joga_dnv= input("Quer jogar novamente?: ")
+                if joga_dnv== "s":
+                    tentativas=20
+                else: 
+                    break
+        elif palavra == "dica":
+            print ("Mercado de Dicas" + ("\n") + "----------------------------------------"+ ("\n") + "1. Cor da bandeira  - custa 4 tentativas" + ("\n") + "2. Letra da capital - custa 3 tentativas" + ("\n") + "3. Área             - custa 6 tentativas"  + ("\n") + "4. População        - custa 5 tentativas"+ ("\n") + "5. Continente       - custa 7 tentativas"+ ("\n") + "0. Sem dica"+ ("\n") + "----------------------------------------")
+            opcoes= "[0|1|2|3|4|5]: "
+            qual_dica= int(input("Escolha sua opção: {0}".format(opcoes)))
+            while qual_dica not in [0,1,2,3,4,5]:
+                print ("Opção inválida")
+            if qual_dica == 1:
+                if len(lista_cor_possivel)>0:
+                    tentativas-=4
+                    coraleatoria = random.choice(lista_cor_possivel)
+                    print (coraleatoria) 
+                    lista_cor_possivel.remove(coraleatoria) 
+                    print (lista_cor_possivel)
+                    dic_dicas["Dicas: "]= dic_cor
+                    print(dic_dicas)
                 else:
-                    cond=False
                     del dic_mercado_dicas[qual_dica]
-                    opcoes[4]="" #isso n funciona
-                    opcoes[5]="" #isso n funciona
-                    print("Acabaram as letras :( ")
-        elif qual_dica == 3:
-            if qual_dica in dic_mercado_dicas:
-                dic_dicas["Dicas: "]= dic_area
-                print (dic_dicas)
-                del dic_mercado_dicas[qual_dica]
-                opcoes[6]="" #isso n funciona
-                opcoes[7]="" #isso n funciona
-                tentativas-=6
-        elif qual_dica == 4:
-            if qual_dica in dic_mercado_dicas:
-                print ("A população do país é: {0}".format(populacao))
-                del dic_mercado_dicas[qual_dica]
-                dic_dicas["Dicas: "]= dic_populacao
-                opcoes[8]=""  #isso n funciona
-                opcoes[9]="" #isso n funciona
-                tentativas-=5
-        elif qual_dica == 5:
-            if qual_dica in dic_mercado_dicas:
-                print("O continente do país é: {0}".format(continente))
-                del dic_mercado_dicas[qual_dica]
-                dic_dicas["Dicas: "]= dic_continente
-                opcoes[10]="" #isso n funciona
-                opcoes[11]="" #isso n funciona
-                tentativas-=7
-    elif palavra == "inventario":
-            print(dic_distancia)
-            print(dic_dicas)
-print ("até a próxima!")     
+                    opcoes[2]="" #isso n funciona
+                    opcoes[3]="" #isso n funciona
+                    print("Acabaram as cores :( ")
+                
+            elif qual_dica == 2:
+                while cond:
+                    if len(lista_letra)>0:
+                        tentativas-=3
+                        letra_capital= ([random.randint(0, len(lista_letra) - 1)])
+                        del lista_letra[lista_letra.index(letra_capital)]
+                        lista_letra_nova.append(letra_capital)
+                        dic_dicas["Dicas: "]= dic_letra
+                        print ("Lista de letras: {0}".format(lista_letra_nova))
+                    else:
+                        cond=False
+                        del dic_mercado_dicas[qual_dica]
+                        opcoes[4]="" #isso n funciona
+                        opcoes[5]="" #isso n funciona
+                        print("Acabaram as letras :( ")
+            elif qual_dica == 3:
+                if qual_dica in dic_mercado_dicas:
+                    dic_dicas["Dicas: "]= dic_area
+                    print (dic_dicas)
+                    del dic_mercado_dicas[qual_dica]
+                    opcoes[6]="" #isso n funciona
+                    opcoes[7]="" #isso n funciona
+                    tentativas-=6
+            elif qual_dica == 4:
+                if qual_dica in dic_mercado_dicas:
+                    print ("A população do país é: {0}".format(populacao))
+                    del dic_mercado_dicas[qual_dica]
+                    dic_dicas["Dicas: "]= dic_populacao
+                    opcoes[8]=""  #isso n funciona
+                    opcoes[9]="" #isso n funciona
+                    tentativas-=5
+            elif qual_dica == 5:
+                if qual_dica in dic_mercado_dicas:
+                    print("O continente do país é: {0}".format(continente))
+                    del dic_mercado_dicas[qual_dica]
+                    dic_dicas["Dicas: "]= dic_continente
+                    opcoes[10]="" #isso n funciona
+                    opcoes[11]="" #isso n funciona
+                    tentativas-=7
+        elif palavra == "inventario":
+                print(dic_distancia)
+                print(dic_dicas)
+    if joga_dnv!= "s":
+        break
+    else: #tentando criar a condição pra ele sair do jogo desistindo ou perdendo
+        print (">>> Você perdeu, o país era: {0}".format(sorteado))
+        joga_dnv= input("Quer jogar novamente?: ")
+        tentativas=20
