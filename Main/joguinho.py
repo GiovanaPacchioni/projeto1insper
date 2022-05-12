@@ -1,3 +1,11 @@
+#Guia das cores para as faixas de distancias (usar if para categorizar)
+#pip install termcolor
+#from termcolor import colored
+
+#Exemplo
+#print(colored('Error Test!!!', 'red'))
+#print(colored('Warning Test!!!', 'yellow'))
+#print(colored('Success Test!!!', 'green'))
 import random 
 from base_normalizada import dados_normalizados
 from Funcoes import *
