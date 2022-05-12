@@ -30,6 +30,9 @@ dic_mercado_dicas= {
     5: "Continente",       
     0: "Sem dica",
 }
+coraleatoria = ([random.choices(lista_cor)]) 
+print (lista_cor)
+print (coraleatoria)
 raio= 6371 
 for cor, percentual in dic_tds_cor.items():
     if percentual > 0:
@@ -41,7 +44,7 @@ while tentativas != 0:
         tentativas-=1
         dist= haversine(raio, dados_normalizados[sorteado]['geo']['latitude'], dados_normalizados[sorteado]['geo']['longitude'], dados_normalizados[palavra]['geo']['latitude'], dados_normalizados[palavra]['geo']['longitude'] )
         if dist > 0 and dist not in dic_distancia:
-            dic_distancia["Distancia"]= str(dist) + "-->" + str(palavra)
+            dic_distancia["Distancia"]= (str(int(dist))+ " --> " + str(palavra))
             print(dic_distancia)
         elif dist == 0 and palavra == sorteado:
             print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
@@ -66,7 +69,6 @@ while tentativas != 0:
             while cond:
                 if len(lista_cor)>0:
                     tentativas-=4
-                    
                     coraleatoria = ([random.choices(lista_cor)]) 
                     lista_cor.pop(coraleatoria)
                     dic_dicas["Dicas: "]= dic_cor
