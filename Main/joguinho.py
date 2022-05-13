@@ -72,7 +72,6 @@ while joga_dnv == 's':
                 print("Dicas:" + "(\n)") 
                 print (lista_dist_print)
                 #não sei se é melhor printar essa lista assim ou formatar a outra
-                
             elif dist == 0 and palavra == sorteado:
                 print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
         elif palavra == "desisto":
