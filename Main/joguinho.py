@@ -17,11 +17,16 @@ lista_cor_possivel=[]
 lista_letra= list(dados_normalizados[sorteado]["capital"])#Linhas para colocar dentro do while
 lista_letra_nova= []
 areas= (dados_normalizados[sorteado]["area"])#Linhas para colocar dentro do while
-lista_distancias_p= []
 populacao= (dados_normalizados[sorteado]["populacao"])#Linhas para colocar dentro do while
 continente= (dados_normalizados[sorteado]["continente"])#Linhas para colocar dentro do while
-dic_distancia= {}
-dic_dicas= {}   
+
+#Elementos que aparecem no inventario
+lista_distancia= []
+lista_dicas=[] #substituindo o dicionario pela lista em lista ordenada 
+dic_dicas= {}  
+
+pais_utilizado= []
+
 dic_cor= {"- Cores da bandeira": lista_cor_possivel}
 dic_letra= {"- Letras da capital": lista_letra_nova}
 dic_area= {"- Área": areas}
@@ -36,8 +41,7 @@ dic_mercado_dicas= {
     0: "Sem dica",
 }
 raio= 6371 
-pais_utilizado= []
-lista_distancia= []
+
 for cor, percentual in dic_tds_cor.items():
     if percentual > 0 and cor != "outras":
         lista_cor_possivel.append(cor)
@@ -49,14 +53,16 @@ while joga_dnv == 's':
         palavra= input("Qual seu palpite?: ") 
         if palavra not in ["desisto", "dica", "inventario"] and palavra in dados_normalizados:
             dist= haversine(raio, dados_normalizados[sorteado]['geo']['latitude'], dados_normalizados[sorteado]['geo']['longitude'], dados_normalizados[palavra]['geo']['latitude'], dados_normalizados[palavra]['geo']['longitude'] )
-            if dist > 0 and dist not in dic_distancia:
-                tentativas-=1
+            if esta_na_lista(palavra, pais_utilizado): #Inserindo a função está na lista, se estiver pedir para o joagdor escolher outro
+                print ("Você já escolheu esse país, pensa em outra aí")  #Se estiver na lista ele não vai verificar dist e vai rodar o while dnv           
+            elif dist > 0: 
+                tentativas-=1 
                 pais_utilizado.append(palavra)
                 #lista das cores das distancias (0> and <1000 = azul  / 1000> and 2000< = amarelo / 2000> and 5000< = vermelho / 5000> and 10000< = rosa/roxo / 10000> = cinza )
-                lista_distancia= adiciona_em_ordem(palavra, dist, pais_utilizado)
-                print(lista_distancia)
-            elif esta_na_lista(palavra, pais_utilizado): #Inserindo a função está na lista, se estiver pedir para o joagdor escolher outro
-                print ("Você já escolheu esse país, pensa em outra aí")
+                lista_distancia= adiciona_em_ordem(palavra, dist, lista_distancia) #adicione em ordem os países com as dist
+                print("Dicas:" + "(\n)")
+                lista_cada_d= (lista_distancia[1] + "-->" + lista_distancia[0])
+                print (lista_cada_d)
             elif dist == 0 and palavra == sorteado:
                 print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
         elif palavra == "desisto":
@@ -130,7 +136,7 @@ while joga_dnv == 's':
                     opcoes[11]="" #isso n funciona
                     tentativas-=7
         elif palavra == "inventario":
-                print(dic_distancia)
+                print(lista_distancia)
                 print(dic_dicas)
     if joga_dnv!= "s":
         break
