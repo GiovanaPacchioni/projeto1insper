@@ -1,5 +1,5 @@
 #Guia das cores para as faixas de distancias (usar if para categorizar)
-from termcolor import colored
+from termcolor import colored #Lembrar que as cores estão nos países com dist e nas tentativas
 #Exemplo
 print(colored('Error Test!!!', 'red'))
 print(colored('Warning Test!!!', 'yellow'))
@@ -22,8 +22,9 @@ continente= (dados_normalizados[sorteado]["continente"])#Linhas para colocar den
 
 #Elementos que aparecem no inventario
 lista_distancia= []
-lista_dicas=[] #substituindo o dicionario pela lista em lista ordenada 
-dic_dicas= {}  
+lista_dist_print= []
+lista_dicas=[]  
+dic_dicas= {}  #substituindo o dicionario pela lista em lista ordenada -> só tirar depois de substituir
 
 pais_utilizado= []
 
@@ -42,9 +43,10 @@ dic_mercado_dicas= {
 }
 raio= 6371 
 
-for cor, percentual in dic_tds_cor.items():
-    if percentual > 0 and cor != "outras":
+for cor, percentual in dic_tds_cor.items(): 
+    if percentual > 0 and cor != "outras": #somente sortear as cores que tem na badeira
         lista_cor_possivel.append(cor)
+
 print (lista_cor_possivel)
 joga_dnv= "s" #começando com a condição verdade
 while joga_dnv == 's':
@@ -60,9 +62,17 @@ while joga_dnv == 's':
                 pais_utilizado.append(palavra)
                 #lista das cores das distancias (0> and <1000 = azul  / 1000> and 2000< = amarelo / 2000> and 5000< = vermelho / 5000> and 10000< = rosa/roxo / 10000> = cinza )
                 lista_distancia= adiciona_em_ordem(palavra, dist, lista_distancia) #adicione em ordem os países com as dist
-                print("Dicas:" + "(\n)")
-                lista_cada_d= (lista_distancia[1] + "-->" + lista_distancia[0])
-                print (lista_cada_d)
+                for lista in lista_distancia:
+                    for elementos in lista:
+                        pais= elementos[0]
+                        distancia= elementos[1]
+                        lista_dist_print.append(distancia + "-->" + pais)
+                        #ou
+                        print ("{0}{1}{2}".format(distancia, " --> ", pais))
+                print("Dicas:" + "(\n)") 
+                print (lista_dist_print)
+                #não sei se é melhor printar essa lista assim ou formatar a outra
+                
             elif dist == 0 and palavra == sorteado:
                 print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
         elif palavra == "desisto":
