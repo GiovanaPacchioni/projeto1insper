@@ -86,10 +86,8 @@ while joga_dnv == 's':
         elif palavra == "dica":
             print ("Mercado de Dicas" + ("\n") + "----------------------------------------"+ ("\n") + "1. Cor da bandeira  - custa 4 tentativas" + ("\n") + "2. Letra da capital - custa 3 tentativas" + ("\n") + "3. Área             - custa 6 tentativas"  + ("\n") + "4. População        - custa 5 tentativas"+ ("\n") + "5. Continente       - custa 7 tentativas"+ ("\n") + "0. Sem dica"+ ("\n") + "----------------------------------------")
             opcoes= "[0|1|2|3|4|5]: "
-            qual_dica= int(input("Escolha sua opção: {0}".format(opcoes)))
-            while qual_dica not in [0,1,2,3,4,5]:
-                print ("Opção inválida")
-            if qual_dica == 1:
+            qual_dica= input("Escolha sua opção: {0}".format(opcoes))
+            if qual_dica == "1":
                 if len(lista_cor_possivel)>0:
                     tentativas-=4
                     coraleatoria = random.choice(lista_cor_possivel)
@@ -104,7 +102,7 @@ while joga_dnv == 's':
                     #opcoes[3]="" #isso n funciona
                     print("Acabaram as cores :( ")
                 
-            elif qual_dica == 2:
+            elif qual_dica == "2":
                 while cond:
                     if len(lista_letra)>0:
                         tentativas-=3
@@ -119,7 +117,7 @@ while joga_dnv == 's':
                         #opcoes[4]="" #isso n funciona
                         #opcoes[5]="" #isso n funciona
                         print("Acabaram as letras :( ")
-            elif qual_dica == 3:
+            elif qual_dica == "3":
                 if qual_dica in dic_mercado_dicas:
                     dic_dicas={"Dicas: ":dic_area}
                     print (dic_dicas)
@@ -127,7 +125,7 @@ while joga_dnv == 's':
                     #opcoes[6]="" #isso n funciona
                     #opcoes[7]="" #isso n funciona
                     tentativas-=6
-            elif qual_dica == 4:
+            elif qual_dica == "4":
                 if qual_dica in dic_mercado_dicas:
                     print ("A população do país é: {0}".format(populacao))
                     del dic_mercado_dicas[qual_dica]
@@ -135,7 +133,7 @@ while joga_dnv == 's':
                     #opcoes[8]=""  #isso n funciona
                     #opcoes[9]="" #isso n funciona
                     tentativas-=5
-            elif qual_dica == 5:
+            elif qual_dica == "5":
                 if qual_dica in dic_mercado_dicas:
                     print("O continente do país é: {0}".format(continente))
                     del dic_mercado_dicas[qual_dica]
@@ -143,6 +141,10 @@ while joga_dnv == 's':
                     #opcoes[10]="" #isso n funciona
                     #opcoes[11]="" #isso n funciona
                     tentativas-=7
+            else:
+                print ("Você não escolheu nenhuma dica valida")
+                #opcoes[12]="" #isso n funciona
+                #opcoes[13]="" #isso n funciona
         elif palavra == "inventario":
                 print(lista_distancia)
                 print(dic_dicas)
