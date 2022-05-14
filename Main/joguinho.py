@@ -33,14 +33,15 @@ um="|1"
 dois="|2"
 tres="|3"
 quatro="|4"
-cinco="5]"
+cinco="|5"
+chavef= "]"
 
 pais_utilizado= []
-dica1= "1. Cor da bandeira  - custa 4 tentativas"
-dica2= "2. Letra da capital - custa 3 tentativas"
-dica3= "3. Área do país     - custa 2 tentativas"
-dica4= "4. População do país - custa 1 tentativa"
-dica5= "5. Continente do país - custa 1 tentativa"
+dica1= "1. Cor da bandeira  - custa 4 tentativas \n"
+dica2= "2. Letra da capital - custa 3 tentativas\n"
+dica3= "3. Área do país     - custa 2 tentativas\n"
+dica4= "4. População do país - custa 1 tentativa\n"
+dica5= "5. Continente do país - custa 1 tentativa\n"
 dica0= "0. Sem dica"
 dic_cor= {"- Cores da bandeira": lista_cor_sorteada}
 dic_letra= {"- Letras da capital": lista_letra_nova}
@@ -62,7 +63,7 @@ for cor, percentual in dic_tds_cor.items():
         lista_cor_possivel.append(cor)
 joga_dnv= "s" #começando com a condição verdade
 while joga_dnv == 's':
-    while tentativas != 0:
+    while tentativas >= 0:
         print ("Um país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas))
         palavra= input("Qual seu palpite?: ") 
         if palavra not in ["desisto", "dica", "inventario"] and palavra in dados_normalizados:
@@ -70,18 +71,15 @@ while joga_dnv == 's':
             if esta_na_lista(palavra, pais_utilizado): #Inserindo a função está na lista, se estiver pedir para o joagdor escolher outro
                 print ("Você já escolheu esse país, pensa em outra aí")  #Se estiver na lista ele não vai verificar dist e vai rodar o while dnv           
             elif dist > 0: 
-                tentativas-=1 
-                pais_utilizado.append(palavra)
-                #lista das cores das distancias (0> and <1000 = azul  / 1000> and 2000< = amarelo / 2000> and 5000< = vermelho / 5000> and 10000< = rosa/roxo / 10000> = cinza )
-                lista_distancia= adiciona_em_ordem(palavra, dist, lista_distancia) #adicione em ordem os países com as dist
-                for lista in lista_distancia:
-                        #pais = elementos[0]
-                        pais = lista_distancia[0][0]
-                        distancia= lista_distancia[0][1]
-                        lista_dist_print.append("{0} --> {1}".format(pais, distancia))
-                        inventario["Distancias"]= [lista_dist_print]
-                print(lista_dist_print)
-                #não sei se é melhor printar essa lista assim ou formatar a outra
+                if palavra not in pais_utilizado:
+                    pais_utilizado.append(palavra)
+                    lista_distancia.append([palavra, dist])
+                    lista_dist_print.append("{0} --> {1}".format(palavra, dist))
+                    #lista das cores das distancias (0> and <1000 = azul  / 1000> and 2000< = amarelo / 2000> and 5000< = vermelho / 5000> and 10000< = rosa/roxo / 10000> = cinza )
+                    lista_dist_print= adiciona_em_ordem(palavra, dist, lista_distancia) #adicione em ordem os países com as dist
+                    inventario["Distancias"]= [lista_dist_print]
+                    tentativas-=1 #diminuindo a quantidade de tentativas
+                    print(lista_dist_print)
             elif dist == 0 and palavra == sorteado:
                 print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
         elif palavra == "desisto":
@@ -95,8 +93,8 @@ while joga_dnv == 's':
                 else: 
                     break
         elif palavra == "dica":
-            print ("Mercado de Dicas" + ("\n") + "---------------------------------------- \n{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n ----------------------------------------".format(dica1 ,dica2, dica3, dica4, dica5, dica0))
-            opcoes= "[0|1|2|3|4|5]: "
+            print ("Mercado de Dicas" + ("\n") + "---------------------------------------- \n{0}{1}{2}{3}{4}{5}\n ----------------------------------------".format(dica1 ,dica2, dica3, dica4, dica5, dica0))
+            opcoes= zero + um + dois + tres + quatro + cinco + chavef
             qual_dica= input("Escolha sua opção: {0}".format(opcoes))
             if qual_dica != "1" and qual_dica != "2" and qual_dica != "3" and qual_dica != "4" and qual_dica != "5" and qual_dica != "0":
                 print ("Você não escolheu uma opção válida")
@@ -113,6 +111,7 @@ while joga_dnv == 's':
                         tentativas-=4
                     else:
                         dica1= ""
+                        um= ""
                         print("Acabaram as cores :( ")
                 
                 elif qual_dica == 2:
@@ -124,11 +123,11 @@ while joga_dnv == 's':
                             print ("Lista de letras: {0}".format(lista_letra_nova))
                             inventario["Letras da capital"] = [lista_letra_nova]
                             del lista_letra[letra_capital]
-                            dica2= ""
                             tentativas-=3
                         elif len(lista_letra)<=0:
                             del dic_mercado_dicas[qual_dica]
                             dica2= ""
+                            dois= ""
                             cond=False
                             print("Acabaram as letras :( ")
                 elif qual_dica == 3:
@@ -137,6 +136,7 @@ while joga_dnv == 's':
                         print (dic_dicas)
                         del dic_mercado_dicas[qual_dica]
                         dica3= ""
+                        tres= ""
                         inventario["Area do país"] = [dic_area]
                         tentativas-=6
                     else:
@@ -145,6 +145,8 @@ while joga_dnv == 's':
                     if qual_dica in dic_mercado_dicas:
                         print ("A população do país é: {0}".format(populacao))
                         del dic_mercado_dicas[qual_dica]
+                        dica4= ""
+                        quatro= ""
                         dic_dicas.update({"População do país: ": dic_populacao})
                         inventario["População"] = [dic_populacao]
                         tentativas-=5
@@ -154,9 +156,11 @@ while joga_dnv == 's':
                     if qual_dica in dic_mercado_dicas:
                         print("O continente do país é: {0}".format(continente))
                         del dic_mercado_dicas[qual_dica]
+                        dica5= ""
                         dic_dicas.update({"Dicas: ": dic_continente})
                         inventario["Continente"] = [dic_continente]
                         tentativas-=7
+                        cinco= ""
                     else:
                         print("Você já sabe o continente do país")
         elif palavra == "inventario":
