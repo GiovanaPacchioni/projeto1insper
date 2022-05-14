@@ -68,10 +68,7 @@ while joga_dnv == 's':
                         pais = elementos[0]
                         distancia= elementos[1]
                         lista_dist_print.append(distancia + "-->" + pais)
-                        #ou
-                        print ("{0}{1}{2}".format(distancia, " --> ", pais))
-                print("Dicas:" + "(\n)") 
-                print (lista_dist_print)
+                print("Dicas:" + lista_dist_print)
                 #não sei se é melhor printar essa lista assim ou formatar a outra
             elif dist == 0 and palavra == sorteado:
                 print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
