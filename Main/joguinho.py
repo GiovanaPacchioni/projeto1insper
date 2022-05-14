@@ -24,8 +24,9 @@ lista_dicas=[]   #substituindo o dicionario pela lista em lista ordenada -> só 
 lista_d_formatada= ""
 pais_utilizado= []
 raio= 6371 
+cond2= True
 joga_dnv= "s" #começando com a condição verdade
-while joga_dnv == 's':
+if joga_dnv == 's' and cond2:
     sorteado= sorteia_pais(dados_normalizados)
     dic_tds_cor=(dados_normalizados[sorteado]["bandeira"])
     lista_letra= list(dados_normalizados[sorteado]["capital"])
@@ -52,6 +53,7 @@ while joga_dnv == 's':
     0: "Sem dica",
     }
     dic_dicas= {} 
+    dicas_for_real= str(dic_dicas)
     lista_dicas= [] 
     zero="[0"
     um="|1"
@@ -89,12 +91,22 @@ while joga_dnv == 's':
                 joga_dnv= input("Quer jogar novamente?: ")
                 if joga_dnv== "s":
                     tentativas=20
+                    lista_d_formatada= ""
+                    lista_distancia= []
+                    lista_dist_print= []
+                    lista_dicas=[]  
+                    lista_letra_nova= []
+                    lista_cor_possivel=[]
+                    lista_cor_sorteada = []
+                    pais_utilizado= []
+                    joga_dnv= "s"
                 else: 
                     break
         elif palavra == "dica":
             print ("Mercado de Dicas" + ("\n") + "---------------------------------------- \n{0}{1}{2}{3}{4}{5}\n ----------------------------------------".format(dica1 ,dica2, dica3, dica4, dica5, dica0))
             opcoes= zero + um + dois + tres + quatro + cinco + chavef
             qual_dica= input("Escolha sua opção: {0}".format(opcoes))
+            print("Dicas: ")
             if qual_dica != "1" and qual_dica != "2" and qual_dica != "3" and qual_dica != "4" and qual_dica != "5" and qual_dica != "0":
                 print ("Você não escolheu uma opção válida")
             else:
@@ -173,27 +185,31 @@ while joga_dnv == 's':
                     dica5= ""
                     cinco= ""
                 for dicas, descricao in dic_dicas.items():
-                    lista_dicas.append(dicas)
-                    lista_dicas.append(descricao)
-                    lista_dicas.append(('\n'))
-
-                print (dic_dicas)
+                    dicas_for_real= str("{0}: {1}").format(dicas, descricao)
+                    print(dicas_for_real)
         elif palavra == "inventario":
-            print("Inventário: {0} \n {1}".format(lista_d_formatada, dic_dicas))
+            print("\nInventário: \n {0} \n {1}\n".format(lista_d_formatada, dic_dicas))
         else:
             print ("Você não escolheu uma opção válida")
     if joga_dnv!= "s":
-        break
+        sorteado= sorteia_pais(dados_normalizados)
+        cond2= False
     else: #tentando criar a condição pra ele sair do jogo desistindo ou perdendo
         print (">>> Você perdeu, o país era: {0}".format(sorteado))
-        joga_dnv= input("Quer jogar novamente?: ")
-        lista_d_formatada= ""
-        lista_distancia= []
-        lista_dist_print= []
-        lista_dicas=[]  
-        lista_letra_nova= []
-        lista_cor_possivel=[]
-        lista_cor_sorteada = []
-        pais_utilizado= []
-        joga_dnv= "s"  
-        tentativas=20
+        joga_dnv= input("Quer jogar novamente?: [s/n] ")
+        while joga_dnv not in ["s", "n"]:
+            print ("Você não escolheu uma opção válida")
+            joga_dnv= input("Quer jogar novamente?: [s/n] ")
+        if joga_dnv == "s":
+            lista_d_formatada= ""
+            lista_distancia= []
+            lista_dist_print= []
+            lista_dicas=[]  
+            lista_letra_nova= []
+            lista_cor_possivel=[]
+            lista_cor_sorteada = []
+            pais_utilizado= []
+            sorteado= sorteia_pais(dados_normalizados)  
+            tentativas=20
+            cond= True
+            cond2= True
