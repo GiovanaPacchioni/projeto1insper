@@ -14,6 +14,7 @@ sorteado= sorteia_pais(dados_normalizados) #Linhas para colocar dentro do while
 tentativas= 20
 dic_tds_cor=(dados_normalizados[sorteado]["bandeira"])#Linhas para colocar dentro do while
 lista_cor_possivel=[]
+lista_cor_sorteada = []
 lista_letra= list(dados_normalizados[sorteado]["capital"])#Linhas para colocar dentro do while
 lista_letra_nova= []
 areas= (dados_normalizados[sorteado]["area"])#Linhas para colocar dentro do while
@@ -28,7 +29,7 @@ dic_dicas= {}  #substituindo o dicionario pela lista em lista ordenada -> só ti
 
 pais_utilizado= []
 
-dic_cor= {"- Cores da bandeira": lista_cor_possivel}
+dic_cor= {"- Cores da bandeira": lista_cor_sorteada}
 dic_letra= {"- Letras da capital": lista_letra_nova}
 dic_area= {"- Área": areas}
 dic_populacao= {"- População": populacao}
@@ -46,15 +47,13 @@ raio= 6371
 for cor, percentual in dic_tds_cor.items(): 
     if percentual > 0 and cor != "outras": #somente sortear as cores que tem na badeira
         lista_cor_possivel.append(cor)
-
-print (lista_cor_possivel)
 joga_dnv= "s" #começando com a condição verdade
 while joga_dnv == 's':
     while tentativas != 0:
         print ("Um país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas))
         palavra= input("Qual seu palpite?: ") 
         if palavra not in ["desisto", "dica", "inventario"] and palavra in dados_normalizados:
-            dist= haversine(raio, dados_normalizados[sorteado]['geo']['latitude'], dados_normalizados[sorteado]['geo']['longitude'], dados_normalizados[palavra]['geo']['latitude'], dados_normalizados[palavra]['geo']['longitude'] )
+            dist = haversine(raio, dados_normalizados[sorteado]['geo']['latitude'], dados_normalizados[sorteado]['geo']['longitude'], dados_normalizados[palavra]['geo']['latitude'], dados_normalizados[palavra]['geo']['longitude'] )
             if esta_na_lista(palavra, pais_utilizado): #Inserindo a função está na lista, se estiver pedir para o joagdor escolher outro
                 print ("Você já escolheu esse país, pensa em outra aí")  #Se estiver na lista ele não vai verificar dist e vai rodar o while dnv           
             elif dist > 0: 
@@ -64,7 +63,7 @@ while joga_dnv == 's':
                 lista_distancia= adiciona_em_ordem(palavra, dist, lista_distancia) #adicione em ordem os países com as dist
                 for lista in lista_distancia:
                     for elementos in lista:
-                        pais= elementos[0]
+                        pais = elementos[0]
                         distancia= elementos[1]
                         lista_dist_print.append(distancia + "-->" + pais)
                         #ou
@@ -94,15 +93,15 @@ while joga_dnv == 's':
                 if len(lista_cor_possivel)>0:
                     tentativas-=4
                     coraleatoria = random.choice(lista_cor_possivel)
-                    print (coraleatoria) 
+                    print (coraleatoria)
+                    lista_cor_sorteada.append(coraleatoria)
                     lista_cor_possivel.remove(coraleatoria) 
-                    print (lista_cor_possivel)
                     dic_dicas["Dicas: "]= dic_cor
                     print(dic_dicas)
                 else:
                     del dic_mercado_dicas[qual_dica]
-                    opcoes[2]="" #isso n funciona
-                    opcoes[3]="" #isso n funciona
+                    #opcoes[2]="" #isso n funciona
+                    #opcoes[3]="" #isso n funciona
                     print("Acabaram as cores :( ")
                 
             elif qual_dica == 2:
@@ -117,32 +116,32 @@ while joga_dnv == 's':
                     else:
                         cond=False
                         del dic_mercado_dicas[qual_dica]
-                        opcoes[4]="" #isso n funciona
-                        opcoes[5]="" #isso n funciona
+                        #opcoes[4]="" #isso n funciona
+                        #opcoes[5]="" #isso n funciona
                         print("Acabaram as letras :( ")
             elif qual_dica == 3:
                 if qual_dica in dic_mercado_dicas:
-                    dic_dicas["Dicas: "]= dic_area
+                    dic_dicas["Dicas: "] = dic_area
                     print (dic_dicas)
                     del dic_mercado_dicas[qual_dica]
-                    opcoes[6]="" #isso n funciona
-                    opcoes[7]="" #isso n funciona
+                    #opcoes[6]="" #isso n funciona
+                    #opcoes[7]="" #isso n funciona
                     tentativas-=6
             elif qual_dica == 4:
                 if qual_dica in dic_mercado_dicas:
                     print ("A população do país é: {0}".format(populacao))
                     del dic_mercado_dicas[qual_dica]
                     dic_dicas["Dicas: "]= dic_populacao
-                    opcoes[8]=""  #isso n funciona
-                    opcoes[9]="" #isso n funciona
+                    #opcoes[8]=""  #isso n funciona
+                    #opcoes[9]="" #isso n funciona
                     tentativas-=5
             elif qual_dica == 5:
                 if qual_dica in dic_mercado_dicas:
                     print("O continente do país é: {0}".format(continente))
                     del dic_mercado_dicas[qual_dica]
                     dic_dicas["Dicas: "]= dic_continente
-                    opcoes[10]="" #isso n funciona
-                    opcoes[11]="" #isso n funciona
+                    #opcoes[10]="" #isso n funciona
+                    #opcoes[11]="" #isso n funciona
                     tentativas-=7
         elif palavra == "inventario":
                 print(lista_distancia)
