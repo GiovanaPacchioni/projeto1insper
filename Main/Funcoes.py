@@ -8,9 +8,19 @@ def adiciona_em_ordem(pais, distancia, listaordenada):
             if distancia < listaordenada[i][1]:
                 listaordenada.insert(i, [pais, distancia])
                 break
-        else:
-            listaordenada.append([pais, distancia])
+            else:
+                listaordenada.append([pais, distancia])
     return listaordenada
+
+def formatando (lista_dist_print):
+    lista_formatada=[]
+    for lista in lista_dist_print:
+        lista_formatada.append("{0} --> {1}".format(lista[0], (lista[1])))
+    lista_formatada2=[]
+    for lista in lista_formatada:
+        lista.replace(",", "\n")
+        lista_formatada2.append(lista)
+    return lista_formatada2
 
 #Confirmar se o país escolhido ta na lista
 #Se não estiver na lista printe: "país desconhecido"

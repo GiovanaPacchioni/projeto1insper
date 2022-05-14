@@ -12,7 +12,7 @@ from Funcoes import *
 
 print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
 sorteado= sorteia_pais(dados_normalizados) #Linhas para colocar dentro do while
-tentativas= 100
+tentativas= 20
 dic_tds_cor=(dados_normalizados[sorteado]["bandeira"])#Linhas para colocar dentro do while
 lista_cor_possivel=[]
 lista_cor_sorteada = []
@@ -23,7 +23,7 @@ populacao= (dados_normalizados[sorteado]["populacao"])#Linhas para colocar dentr
 continente= (dados_normalizados[sorteado]["continente"])#Linhas para colocar dentro do while
 cond = True
 #Elementos que aparecem no inventario
-inventario = {}
+
 lista_distancia= []
 lista_dist_print= []
 lista_dicas=[]  
@@ -36,12 +36,13 @@ quatro="|4"
 cinco="|5"
 chavef= "]"
 
+lista_d_formatada= ""
 pais_utilizado= []
 dica1= "1. Cor da bandeira  - custa 4 tentativas \n"
 dica2= "2. Letra da capital - custa 3 tentativas\n"
-dica3= "3. Área do país     - custa 2 tentativas\n"
-dica4= "4. População do país - custa 1 tentativa\n"
-dica5= "5. Continente do país - custa 1 tentativa\n"
+dica3= "3. Área do país     - custa 6 tentativas\n"
+dica4= "4. População do país - custa 5 tentativa\n"
+dica5= "5. Continente do país - custa 7 tentativa\n"
 dica0= "0. Sem dica"
 dic_cor= {"- Cores da bandeira": lista_cor_sorteada}
 dic_letra= {"- Letras da capital": lista_letra_nova}
@@ -63,7 +64,7 @@ for cor, percentual in dic_tds_cor.items():
         lista_cor_possivel.append(cor)
 joga_dnv= "s" #começando com a condição verdade
 while joga_dnv == 's':
-    while tentativas >= 0:
+    while tentativas > 0:
         print ("Um país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas))
         palavra= input("Qual seu palpite?: ") 
         if palavra not in ["desisto", "dica", "inventario"] and palavra in dados_normalizados:
@@ -73,13 +74,12 @@ while joga_dnv == 's':
             elif dist > 0: 
                 if palavra not in pais_utilizado:
                     pais_utilizado.append(palavra)
-                    lista_distancia.append([palavra, dist])
-                    lista_dist_print.append("{0} --> {1}".format(palavra, dist))
+                    #lista_distancia.append([palavra, dist])
                     #lista das cores das distancias (0> and <1000 = azul  / 1000> and 2000< = amarelo / 2000> and 5000< = vermelho / 5000> and 10000< = rosa/roxo / 10000> = cinza )
-                    lista_dist_print= adiciona_em_ordem(palavra, dist, lista_distancia) #adicione em ordem os países com as dist
-                    inventario["Distancias"]= [lista_dist_print]
+                    lista_dist_print= adiciona_em_ordem(palavra, dist, lista_distancia) #adicione em ordem os países com as distâncias
                     tentativas-=1 #diminuindo a quantidade de tentativas
-                    print(lista_dist_print)
+                    lista_d_formatada=formatando(lista_dist_print)
+                    print(lista_d_formatada)
             elif dist == 0 and palavra == sorteado:
                 print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
         elif palavra == "desisto":
@@ -100,71 +100,82 @@ while joga_dnv == 's':
                 print ("Você não escolheu uma opção válida")
             else:
                 qual_dica = int(qual_dica)
-                if qual_dica == 1:
-                    if len(lista_cor_possivel)>0:
-                        coraleatoria = random.choice(lista_cor_possivel)
-                        lista_cor_sorteada.append(coraleatoria)
-                        inventario["Cor da bandeira"] = [coraleatoria]
-                        lista_cor_possivel.remove(coraleatoria) 
-                        dic_dicas.update(dic_cor)
-                        print(dic_dicas)
-                        tentativas-=4
-                    else:
-                        dica1= ""
-                        um= ""
-                        print("Acabaram as cores :( ")
-                
-                elif qual_dica == 2:
-                    if cond == True:
-                        if len(lista_letra)>0 and qual_dica in dic_mercado_dicas:
-                            letra_capital= (random.randint(0, len(lista_letra)-1))
-                            lista_letra_nova.append(lista_letra[letra_capital])
-                            dic_dicas.update({"Letras da capital: ": [(lista_letra[letra_capital])]})
-                            print ("Lista de letras: {0}".format(lista_letra_nova))
-                            inventario["Letras da capital"] = [lista_letra_nova]
-                            del lista_letra[letra_capital]
-                            tentativas-=3
-                        elif len(lista_letra)<=0:
+                if tentativas >= 4:
+                    if qual_dica == 1:
+                        if len(lista_cor_possivel)>0:
+                            coraleatoria = random.choice(lista_cor_possivel)
+                            lista_cor_sorteada.append(coraleatoria)
+                            lista_cor_possivel.remove(coraleatoria) 
+                            dic_dicas.update(dic_cor)
+                            tentativas-=4
+                        else:
+                            dica1= ""
+                            um= ""
+                            print("Acabaram as cores :( ")
+                            break
+                else:
+                    dica1= ""
+                    um= ""
+                if tentativas >= 3:
+                    if qual_dica == 2:
+                        if cond == True:
+                            if len(lista_letra)>0 and qual_dica in dic_mercado_dicas:
+                                letra_capital= (random.randint(0, len(lista_letra)-1))
+                                lista_letra_nova.append(lista_letra[letra_capital])
+                                del lista_letra[letra_capital]
+                                dic_dicas.update(dic_letra)
+                                tentativas-=3
+                            elif len(lista_letra)<=0:
+                                del dic_mercado_dicas[qual_dica]
+                                dica2= ""
+                                dois= ""
+                                cond=False
+                                print("Acabaram as letras :( ")
+                else:
+                    dica2= ""
+                    dois= ""
+                if tentativas >= 6:
+                    if qual_dica == 3:
+                        if qual_dica in dic_mercado_dicas:
+                            dic_dicas.update(dic_area)
                             del dic_mercado_dicas[qual_dica]
-                            dica2= ""
-                            dois= ""
-                            cond=False
-                            print("Acabaram as letras :( ")
-                elif qual_dica == 3:
-                    if qual_dica in dic_mercado_dicas:
-                        dic_dicas.update( dic_area)
-                        print (dic_dicas)
-                        del dic_mercado_dicas[qual_dica]
-                        dica3= ""
-                        tres= ""
-                        inventario["Area do país"] = [dic_area]
-                        tentativas-=6
-                    else:
-                        print("Você já sabe a area do país")
-                elif qual_dica == 4:
-                    if qual_dica in dic_mercado_dicas:
-                        print ("A população do país é: {0}".format(populacao))
-                        del dic_mercado_dicas[qual_dica]
-                        dica4= ""
-                        quatro= ""
-                        dic_dicas.update({"População do país: ": dic_populacao})
-                        inventario["População"] = [dic_populacao]
-                        tentativas-=5
-                    else:
-                        print("Você já sabe a população do país")
-                elif qual_dica == 5:
-                    if qual_dica in dic_mercado_dicas:
-                        print("O continente do país é: {0}".format(continente))
-                        del dic_mercado_dicas[qual_dica]
-                        dica5= ""
-                        dic_dicas.update({"Dicas: ": dic_continente})
-                        inventario["Continente"] = [dic_continente]
-                        tentativas-=7
-                        cinco= ""
-                    else:
-                        print("Você já sabe o continente do país")
+                            dica3= ""
+                            tres= ""
+                            tentativas-=6
+                        else:
+                            print("Você já sabe a area do país")
+                else:
+                    dica3= ""
+                    tres= ""
+                if tentativas >= 5:
+                    if qual_dica == 4:
+                        if qual_dica in dic_mercado_dicas:
+                            del dic_mercado_dicas[qual_dica]
+                            dica4= ""
+                            quatro= ""
+                            dic_dicas.update(dic_populacao)   
+                            tentativas-=5
+                        else:
+                            print("Você já sabe a população do país")
+                else:
+                    dica4= ""
+                    quatro= ""
+                if tentativas >= 6:
+                    if qual_dica == 5:
+                        if qual_dica in dic_mercado_dicas:
+                            del dic_mercado_dicas[qual_dica]
+                            dica5= ""
+                            dic_dicas.update(dic_continente)
+                            tentativas-=7
+                            cinco= ""
+                        else:
+                            print("Você já sabe o continente do país")
+                else:
+                    dica5= ""
+                    cinco= ""
+                print (dic_dicas)
         elif palavra == "inventario":
-            print("Inventário: {0}".format(inventario))
+            print("Inventário: {0} \n {1}".format(lista_d_formatada, dic_dicas))
         else:
             print ("Você não escolheu uma opção válida")
     if joga_dnv!= "s":
