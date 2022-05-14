@@ -95,7 +95,6 @@ while joga_dnv == 's':
                 qual_dica = int(qual_dica)
                 if qual_dica == 1:
                     if len(lista_cor_possivel)>0:
-                        tentativas-=4
                         coraleatoria = random.choice(lista_cor_possivel)
                         print (coraleatoria)
                         lista_cor_sorteada.append(coraleatoria)
@@ -103,20 +102,21 @@ while joga_dnv == 's':
                         lista_cor_possivel.remove(coraleatoria) 
                         dic_dicas.update({"Dicas: ": dic_cor})
                         print(dic_dicas)
+                        tentativas-=4
                     else:
                         print("Acabaram as cores :( ")
                 
                 elif qual_dica == 2:
                     while cond == True:
                         if len(lista_letra)>0:
-                            tentativas-=3
-                            letra_capital= ([random.randint(0, len(lista_letra) - 1)])
+                            letra_capital= ([random.randint(0, len(lista_letra)-1)])
                             del lista_letra[lista_letra.index(letra_capital)]
                             lista_letra_nova.append(letra_capital)
                             dic_dicas.update({"Dicas: ": [lista_letra_nova]})
                             print ("Lista de letras: {0}".format(lista_letra_nova))
                             inventario["Letras da capital"] = [lista_letra_nova]
-                        elif len(lista_letra)==0:
+                            tentativas-=3
+                        elif len(lista_letra)<=0:
                             cond=False
                             print("Acabaram as letras :( ")
                 elif qual_dica == 3:
@@ -148,6 +148,8 @@ while joga_dnv == 's':
                         print("Você já sabe o continente do país")
         elif palavra == "inventario":
             print("Inventário: {0}".format(inventario))
+        else:
+            print ("Você não escolheu uma opção válida")
     if joga_dnv!= "s":
         break
     else: #tentando criar a condição pra ele sair do jogo desistindo ou perdendo
