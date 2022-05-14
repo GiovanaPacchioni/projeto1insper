@@ -64,11 +64,12 @@ while joga_dnv == 's':
                 #lista das cores das distancias (0> and <1000 = azul  / 1000> and 2000< = amarelo / 2000> and 5000< = vermelho / 5000> and 10000< = rosa/roxo / 10000> = cinza )
                 lista_distancia= adiciona_em_ordem(palavra, dist, lista_distancia) #adicione em ordem os países com as dist
                 for lista in lista_distancia:
-                    for elementos in lista:
-                        pais = elementos[0]
-                        distancia= elementos[1]
-                        lista_dist_print.append(distancia + "-->" + pais)
-                print("Dicas:" + lista_dist_print)
+                        #pais = elementos[0]
+                        pais = lista_distancia[0][0]
+                        distancia= lista_distancia[0][1]
+                        lista_dist_print.append("{0} --> {1}".format(pais, distancia))
+                        inventario["Distancias"]= [lista_dist_print]
+                print(lista_dist_print)
                 #não sei se é melhor printar essa lista assim ou formatar a outra
             elif dist == 0 and palavra == sorteado:
                 print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
