@@ -25,7 +25,7 @@ continente= (dados_normalizados[sorteado]["continente"])#Linhas para colocar den
 lista_distancia= []
 lista_dist_print= []
 lista_dicas=[]  
-dic_dicas= {}  #substituindo o dicionario pela lista em lista ordenada -> só tirar depois de substituir
+dic_dicas= {"Dicas: "}  #substituindo o dicionario pela lista em lista ordenada -> só tirar depois de substituir
 
 pais_utilizado= []
 
@@ -96,7 +96,7 @@ while joga_dnv == 's':
                     print (coraleatoria)
                     lista_cor_sorteada.append(coraleatoria)
                     lista_cor_possivel.remove(coraleatoria) 
-                    dic_dicas["Dicas: "]= dic_cor
+                    dic_dicas={"Dicas: ": dic_cor}
                     print(dic_dicas)
                 else:
                     del dic_mercado_dicas[qual_dica]
@@ -111,7 +111,7 @@ while joga_dnv == 's':
                         letra_capital= ([random.randint(0, len(lista_letra) - 1)])
                         del lista_letra[lista_letra.index(letra_capital)]
                         lista_letra_nova.append(letra_capital)
-                        dic_dicas["Dicas: "]= dic_letra
+                        dic_dicas={"Dicas: ": dic_letra}
                         print ("Lista de letras: {0}".format(lista_letra_nova))
                     else:
                         cond=False
@@ -121,7 +121,7 @@ while joga_dnv == 's':
                         print("Acabaram as letras :( ")
             elif qual_dica == 3:
                 if qual_dica in dic_mercado_dicas:
-                    dic_dicas["Dicas: "] = dic_area
+                    dic_dicas={"Dicas: ":dic_area}
                     print (dic_dicas)
                     del dic_mercado_dicas[qual_dica]
                     #opcoes[6]="" #isso n funciona
@@ -131,7 +131,7 @@ while joga_dnv == 's':
                 if qual_dica in dic_mercado_dicas:
                     print ("A população do país é: {0}".format(populacao))
                     del dic_mercado_dicas[qual_dica]
-                    dic_dicas["Dicas: "]= dic_populacao
+                    dic_dicas={"Dicas: ":dic_populacao}
                     #opcoes[8]=""  #isso n funciona
                     #opcoes[9]="" #isso n funciona
                     tentativas-=5
@@ -139,7 +139,7 @@ while joga_dnv == 's':
                 if qual_dica in dic_mercado_dicas:
                     print("O continente do país é: {0}".format(continente))
                     del dic_mercado_dicas[qual_dica]
-                    dic_dicas["Dicas: "]= dic_continente
+                    dic_dicas={"Dicas: ":dic_continente}
                     #opcoes[10]="" #isso n funciona
                     #opcoes[11]="" #isso n funciona
                     tentativas-=7
