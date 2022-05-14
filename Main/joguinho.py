@@ -23,10 +23,11 @@ populacao= (dados_normalizados[sorteado]["populacao"])#Linhas para colocar dentr
 continente= (dados_normalizados[sorteado]["continente"])#Linhas para colocar dentro do while
 cond = True
 #Elementos que aparecem no inventario
+inventario = {}
 lista_distancia= []
 lista_dist_print= []
 lista_dicas=[]  
-dic_dicas= {"Dicas: "}  #substituindo o dicionario pela lista em lista ordenada -> só tirar depois de substituir
+dic_dicas= {}  #substituindo o dicionario pela lista em lista ordenada -> só tirar depois de substituir
 
 pais_utilizado= []
 
@@ -98,8 +99,9 @@ while joga_dnv == 's':
                         coraleatoria = random.choice(lista_cor_possivel)
                         print (coraleatoria)
                         lista_cor_sorteada.append(coraleatoria)
+                        inventario.update({"Inventário: ": [coraleatoria]})
                         lista_cor_possivel.remove(coraleatoria) 
-                        dic_dicas={"Dicas: ": dic_cor}
+                        dic_dicas.update({"Dicas: ": dic_cor})
                         print(dic_dicas)
                     else:
                         print("Acabaram as cores :( ")
@@ -111,16 +113,18 @@ while joga_dnv == 's':
                             letra_capital= ([random.randint(0, len(lista_letra) - 1)])
                             del lista_letra[lista_letra.index(letra_capital)]
                             lista_letra_nova.append(letra_capital)
-                            dic_dicas={"Dicas: ": dic_letra}
+                            dic_dicas.update({"Dicas: ": [lista_letra_nova]})
                             print ("Lista de letras: {0}".format(lista_letra_nova))
+                            inventario.update({"Inventário: ": [lista_letra_nova]})
                         elif len(lista_letra)==0:
                             cond=False
                             print("Acabaram as letras :( ")
                 elif qual_dica == 3:
                     if qual_dica in dic_mercado_dicas:
-                        dic_dicas={"Dicas: ":dic_area}
+                        dic_dicas.update({"Dicas: ": dic_area})
                         print (dic_dicas)
                         del dic_mercado_dicas[qual_dica]
+                        inventario.update({"Inventário: ": [dic_area]})
                         tentativas-=6
                     else:
                         print("Você já sabe a area do país")
@@ -128,7 +132,8 @@ while joga_dnv == 's':
                     if qual_dica in dic_mercado_dicas:
                         print ("A população do país é: {0}".format(populacao))
                         del dic_mercado_dicas[qual_dica]
-                        dic_dicas={"Dicas: ":dic_populacao}
+                        dic_dicas.update({"Dicas: ": dic_populacao})
+                        inventario.update({"Inventário: ": [dic_populacao]})
                         tentativas-=5
                     else:
                         print("Você já sabe a população do país")
@@ -136,13 +141,13 @@ while joga_dnv == 's':
                     if qual_dica in dic_mercado_dicas:
                         print("O continente do país é: {0}".format(continente))
                         del dic_mercado_dicas[qual_dica]
-                        dic_dicas={"Dicas: ":dic_continente}
+                        dic_dicas.update({"Dicas: ": dic_continente})
+                        inventario.update({"Inventário: ": [dic_continente]})
                         tentativas-=7
                     else:
                         print("Você já sabe o continente do país")
         elif palavra == "inventario":
-                print(lista_distancia)
-                print(dic_dicas)
+            print("Inventário: {0}".format(inventario))
     if joga_dnv!= "s":
         break
     else: #tentando criar a condição pra ele sair do jogo desistindo ou perdendo
