@@ -99,7 +99,7 @@ while joga_dnv == 's':
                         coraleatoria = random.choice(lista_cor_possivel)
                         print (coraleatoria)
                         lista_cor_sorteada.append(coraleatoria)
-                        inventario.update({"Inventário: ": [coraleatoria]})
+                        inventario["Cor dapandeira"] = [coraleatoria]
                         lista_cor_possivel.remove(coraleatoria) 
                         dic_dicas.update({"Dicas: ": dic_cor})
                         print(dic_dicas)
@@ -115,7 +115,7 @@ while joga_dnv == 's':
                             lista_letra_nova.append(letra_capital)
                             dic_dicas.update({"Dicas: ": [lista_letra_nova]})
                             print ("Lista de letras: {0}".format(lista_letra_nova))
-                            inventario.update({"Inventário: ": [lista_letra_nova]})
+                            inventario["Letras da capital"] = [lista_letra_nova]
                         elif len(lista_letra)==0:
                             cond=False
                             print("Acabaram as letras :( ")
@@ -124,7 +124,7 @@ while joga_dnv == 's':
                         dic_dicas.update({"Dicas: ": dic_area})
                         print (dic_dicas)
                         del dic_mercado_dicas[qual_dica]
-                        inventario.update({"Inventário: ": [dic_area]})
+                        inventario["Area do país"] = [dic_area]
                         tentativas-=6
                     else:
                         print("Você já sabe a area do país")
@@ -133,7 +133,7 @@ while joga_dnv == 's':
                         print ("A população do país é: {0}".format(populacao))
                         del dic_mercado_dicas[qual_dica]
                         dic_dicas.update({"Dicas: ": dic_populacao})
-                        inventario.update({"Inventário: ": [dic_populacao]})
+                        inventario["População"] = [dic_populacao]
                         tentativas-=5
                     else:
                         print("Você já sabe a população do país")
@@ -142,7 +142,7 @@ while joga_dnv == 's':
                         print("O continente do país é: {0}".format(continente))
                         del dic_mercado_dicas[qual_dica]
                         dic_dicas.update({"Dicas: ": dic_continente})
-                        inventario.update({"Inventário: ": [dic_continente]})
+                        inventario["Continente"] = [dic_continente]
                         tentativas-=7
                     else:
                         print("Você já sabe o continente do país")
