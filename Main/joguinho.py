@@ -11,59 +11,58 @@ from base_normalizada import dados_normalizados
 from Funcoes import *
 
 print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
-sorteado= sorteia_pais(dados_normalizados) #Linhas para colocar dentro do while
+
 tentativas= 20
-dic_tds_cor=(dados_normalizados[sorteado]["bandeira"])#Linhas para colocar dentro do while
 lista_cor_possivel=[]
 lista_cor_sorteada = []
-lista_letra= list(dados_normalizados[sorteado]["capital"])#Linhas para colocar dentro do while
 lista_letra_nova= []
-areas= (dados_normalizados[sorteado]["area"])#Linhas para colocar dentro do while
-populacao= (dados_normalizados[sorteado]["populacao"])#Linhas para colocar dentro do while
-continente= (dados_normalizados[sorteado]["continente"])#Linhas para colocar dentro do while
 cond = True
 #Elementos que aparecem no inventario
-
 lista_distancia= []
 lista_dist_print= []
-lista_dicas=[]  
-dic_dicas= {}  #substituindo o dicionario pela lista em lista ordenada -> só tirar depois de substituir
-zero="[0"
-um="|1"
-dois="|2"
-tres="|3"
-quatro="|4"
-cinco="|5"
-chavef= "]"
-
+lista_dicas=[]   #substituindo o dicionario pela lista em lista ordenada -> só tirar depois de substituir
 lista_d_formatada= ""
 pais_utilizado= []
-dica1= "1. Cor da bandeira  - custa 4 tentativas \n"
-dica2= "2. Letra da capital - custa 3 tentativas\n"
-dica3= "3. Área do país     - custa 6 tentativas\n"
-dica4= "4. População do país - custa 5 tentativa\n"
-dica5= "5. Continente do país - custa 7 tentativa\n"
-dica0= "0. Sem dica"
-dic_cor= {"- Cores da bandeira": lista_cor_sorteada}
-dic_letra= {"- Letras da capital": lista_letra_nova}
-dic_area= {"- Área do país": areas}
-dic_populacao= {"- População": populacao}
-dic_continente= {"- Continente": continente}
-dic_mercado_dicas= {
+raio= 6371 
+joga_dnv= "s" #começando com a condição verdade
+while joga_dnv == 's':
+    sorteado= sorteia_pais(dados_normalizados)
+    dic_tds_cor=(dados_normalizados[sorteado]["bandeira"])
+    lista_letra= list(dados_normalizados[sorteado]["capital"])
+    areas= (dados_normalizados[sorteado]["area"])
+    populacao= (dados_normalizados[sorteado]["populacao"])
+    continente= (dados_normalizados[sorteado]["continente"])
+    dica1= "1. Cor da bandeira  - custa 4 tentativas \n"
+    dica2= "2. Letra da capital - custa 3 tentativas\n"
+    dica3= "3. Área do país     - custa 6 tentativas\n"
+    dica4= "4. População do país - custa 5 tentativa\n"
+    dica5= "5. Continente do país - custa 7 tentativa\n"
+    dica0= "0. Sem dica"
+    dic_cor= {"- Cores da bandeira": lista_cor_sorteada}
+    dic_letra= {"- Letras da capital": lista_letra_nova}
+    dic_area= {"- Área do país": areas}
+    dic_populacao= {"- População": populacao}
+    dic_continente= {"- Continente": continente}
+    dic_mercado_dicas= {
     1: "Cor da bandeira",
     2: "Letra da capital",
     3: "Área",
     4: "População",        
     5: "Continente",       
     0: "Sem dica",
-}
-raio= 6371 
-
-for cor, percentual in dic_tds_cor.items(): 
-    if percentual > 0 and cor != "outras": #somente sortear as cores que tem na badeira
-        lista_cor_possivel.append(cor)
-joga_dnv= "s" #começando com a condição verdade
-while joga_dnv == 's':
+    }
+    dic_dicas= {} 
+    lista_dicas= [] 
+    zero="[0"
+    um="|1"
+    dois="|2"
+    tres="|3"
+    quatro="|4"
+    cinco="|5"
+    chavef= "]"
+    for cor, percentual in dic_tds_cor.items(): 
+        if percentual > 0 and cor != "outras": #somente sortear as cores que tem na badeira
+            lista_cor_possivel.append(cor)  
     while tentativas > 0:
         print ("Um país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas))
         palavra= input("Qual seu palpite?: ") 
@@ -173,6 +172,11 @@ while joga_dnv == 's':
                 else:
                     dica5= ""
                     cinco= ""
+                for dicas, descricao in dic_dicas.items():
+                    lista_dicas.append(dicas)
+                    lista_dicas.append(descricao)
+                    lista_dicas.append(('\n'))
+
                 print (dic_dicas)
         elif palavra == "inventario":
             print("Inventário: {0} \n {1}".format(lista_d_formatada, dic_dicas))
@@ -183,4 +187,13 @@ while joga_dnv == 's':
     else: #tentando criar a condição pra ele sair do jogo desistindo ou perdendo
         print (">>> Você perdeu, o país era: {0}".format(sorteado))
         joga_dnv= input("Quer jogar novamente?: ")
+        lista_d_formatada= ""
+        lista_distancia= []
+        lista_dist_print= []
+        lista_dicas=[]  
+        lista_letra_nova= []
+        lista_cor_possivel=[]
+        lista_cor_sorteada = []
+        pais_utilizado= []
+        joga_dnv= "s"  
         tentativas=20
