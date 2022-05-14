@@ -33,7 +33,7 @@ pais_utilizado= []
 
 dic_cor= {"- Cores da bandeira": lista_cor_sorteada}
 dic_letra= {"- Letras da capital": lista_letra_nova}
-dic_area= {"- Área": areas}
+dic_area= {"- Área do país": areas}
 dic_populacao= {"- População": populacao}
 dic_continente= {"- Continente": continente}
 dic_mercado_dicas= {
@@ -98,7 +98,7 @@ while joga_dnv == 's':
                         lista_cor_sorteada.append(coraleatoria)
                         inventario["Cor da bandeira"] = [coraleatoria]
                         lista_cor_possivel.remove(coraleatoria) 
-                        dic_dicas.update({"Dicas: ": dic_cor})
+                        dic_dicas.update(dic_cor)
                         print(dic_dicas)
                         tentativas-=4
                     else:
@@ -109,7 +109,7 @@ while joga_dnv == 's':
                         if len(lista_letra)>0:
                             letra_capital= (random.randint(0, len(lista_letra)-1))
                             lista_letra_nova.append(lista_letra[letra_capital])
-                            dic_dicas.update({"Dicas: ": [(lista_letra[letra_capital])]})
+                            dic_dicas.update({"Letras da capital: ": [(lista_letra[letra_capital])]})
                             print ("Lista de letras: {0}".format(lista_letra_nova))
                             inventario["Letras da capital"] = [lista_letra_nova]
                             del lista_letra[letra_capital]
@@ -119,7 +119,7 @@ while joga_dnv == 's':
                             print("Acabaram as letras :( ")
                 elif qual_dica == 3:
                     if qual_dica in dic_mercado_dicas:
-                        dic_dicas.update({"Dicas: ": dic_area})
+                        dic_dicas.update( dic_area)
                         print (dic_dicas)
                         del dic_mercado_dicas[qual_dica]
                         inventario["Area do país"] = [dic_area]
@@ -130,7 +130,7 @@ while joga_dnv == 's':
                     if qual_dica in dic_mercado_dicas:
                         print ("A população do país é: {0}".format(populacao))
                         del dic_mercado_dicas[qual_dica]
-                        dic_dicas.update({"Dicas: ": dic_populacao})
+                        dic_dicas.update({"População do país: ": dic_populacao})
                         inventario["População"] = [dic_populacao]
                         tentativas-=5
                     else:
