@@ -11,7 +11,7 @@ from base_normalizada import dados_normalizados
 from Funcoes import *
 
 print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
-
+sorteado= ''
 tentativas= 20
 lista_cor_possivel=[]
 lista_cor_sorteada = []
@@ -26,7 +26,7 @@ pais_utilizado= []
 raio= 6371 
 cond2= True
 joga_dnv= "s" #começando com a condição verdade
-if joga_dnv == 's' and cond2:
+while joga_dnv == 's':
     sorteado= sorteia_pais(dados_normalizados)
     dic_tds_cor=(dados_normalizados[sorteado]["bandeira"])
     lista_letra= list(dados_normalizados[sorteado]["capital"])
@@ -89,6 +89,9 @@ if joga_dnv == 's' and cond2:
                 tentativas=0
                 print (">>>Que deselegante desistir, o país era: {0}".format(sorteado))
                 joga_dnv= input("Quer jogar novamente?: ")
+                while joga_dnv not in ["s", "n"]:
+                    print ("Você não escolheu uma opção válida")
+                    joga_dnv= input("Quer jogar novamente?: [s/n] ")
                 if joga_dnv== "s":
                     tentativas=20
                     lista_d_formatada= ""
@@ -192,7 +195,7 @@ if joga_dnv == 's' and cond2:
         else:
             print ("Você não escolheu uma opção válida")
     if joga_dnv!= "s":
-        sorteado= sorteia_pais(dados_normalizados)
+        sorteado = sorteia_pais(dados_normalizados)
         cond2= False
     else: #tentando criar a condição pra ele sair do jogo desistindo ou perdendo
         print (">>> Você perdeu, o país era: {0}".format(sorteado))
@@ -201,6 +204,8 @@ if joga_dnv == 's' and cond2:
             print ("Você não escolheu uma opção válida")
             joga_dnv= input("Quer jogar novamente?: [s/n] ")
         if joga_dnv == "s":
+            del dados_normalizados[sorteado]
+            sorteado= sorteia_pais(dados_normalizados)
             lista_d_formatada= ""
             lista_distancia= []
             lista_dist_print= []
@@ -208,8 +213,11 @@ if joga_dnv == 's' and cond2:
             lista_letra_nova= []
             lista_cor_possivel=[]
             lista_cor_sorteada = []
-            pais_utilizado= []
-            sorteado= sorteia_pais(dados_normalizados)  
+            pais_utilizado= [] 
             tentativas=20
             cond= True
-            cond2= True
+    print("Poxa você perdeu, o país era: {0}".format(sorteado))
+    joga_dnv= input("Quer jogar novamente?: [s/n] ")
+        while joga_dnv not in ["s", "n"]:
+            print ("Você não escolheu uma opção válida")
+            joga_dnv= input("Quer jogar novamente?: [s/n] ")
