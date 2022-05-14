@@ -98,7 +98,7 @@ while joga_dnv == 's':
                         coraleatoria = random.choice(lista_cor_possivel)
                         print (coraleatoria)
                         lista_cor_sorteada.append(coraleatoria)
-                        inventario["Cor dapandeira"] = [coraleatoria]
+                        inventario["Cor da bandeira"] = [coraleatoria]
                         lista_cor_possivel.remove(coraleatoria) 
                         dic_dicas.update({"Dicas: ": dic_cor})
                         print(dic_dicas)
@@ -107,14 +107,14 @@ while joga_dnv == 's':
                         print("Acabaram as cores :( ")
                 
                 elif qual_dica == 2:
-                    while cond == True:
+                    if cond == True:
                         if len(lista_letra)>0:
-                            letra_capital= ([random.randint(0, len(lista_letra)-1)])
-                            del lista_letra[lista_letra.index(letra_capital)]
-                            lista_letra_nova.append(letra_capital)
-                            dic_dicas.update({"Dicas: ": [lista_letra_nova]})
+                            letra_capital= (random.randint(0, len(lista_letra)-1))
+                            lista_letra_nova.append(lista_letra[letra_capital])
+                            dic_dicas.update({"Dicas: ": [(lista_letra[letra_capital])]})
                             print ("Lista de letras: {0}".format(lista_letra_nova))
                             inventario["Letras da capital"] = [lista_letra_nova]
+                            del lista_letra[letra_capital]
                             tentativas-=3
                         elif len(lista_letra)<=0:
                             cond=False
