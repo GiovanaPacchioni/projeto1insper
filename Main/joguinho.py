@@ -10,7 +10,7 @@ import random
 from base_normalizada import dados_normalizados
 from Funcoes import *
 
-print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
+print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição")
 
 sorteado= ''
 tentativas= 20
@@ -67,11 +67,17 @@ while joga_dnv == 's': #Loop de jogar o jogo
         if percentual > 0 and cor != "outras": #somente sortear as cores que tem na badeira
             lista_cor_possivel.append(cor)  
     while tentativas > 0:
-        print ("\nUm país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas))
+        if tentativas<=20 and tentativas>10:
+            tentativas_p= colored(tentativas, 'blue')
+        elif tentativas<=10 and tentativas>5:
+            tentativas_p= colored(tentativas, 'yellow')
+        elif tentativas<5:
+            tentativas_p= colored(tentativas, 'red')
+        print ("\nUm país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas_p))
         palavra= input("Qual seu palpite?: ") 
         if palavra not in ["desisto", "dica", "inventario"] and palavra in dados_normalizados:
             dist = haversine(raio, dados_normalizados[sorteado]['geo']['latitude'], dados_normalizados[sorteado]['geo']['longitude'], dados_normalizados[palavra]['geo']['latitude'], dados_normalizados[palavra]['geo']['longitude'] )
-            if esta_na_lista(palavra, pais_utilizado): #Inserindo a função está na lista, se estiver pedir para o joagdor escolher outro
+            if esta_na_lista(palavra, pais_utilizado) == True: #Inserindo a função está na lista, se estiver pedir para o joagdor escolher outro
                 print ("\nVocê já escolheu esse país, pensa em outra aí")  #Se estiver na lista ele não vai verificar dist e vai rodar o while dnv           
             elif dist > 0: 
                 if palavra not in pais_utilizado:
@@ -139,7 +145,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             dica1= ""
                             um= ""
                             print("\nAcabaram as cores :( ")
-                            break
+                            
                 else:
                     dica1= ""
                     um= ""
@@ -204,7 +210,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                     dicas_for_real= str("{0}: {1}").format(dicas, descricao)
                     print(dicas_for_real)
         elif palavra == "inventario":
-            print("\nInventário: \n {0} \n {1}\n".format(lista_d_formatada, dic_dicas))
+            print("------------\n|Inventário|\n------------\nPalpites e distancias:\n{0}\nDicas:\n{1}\n".format(lista_printável, dicas_for_real))
         else:
             print ("\nVocê não escolheu uma opção válida")
     else: #tentando criar a condição pra ele sair do jogo desistindo ou perdendo
