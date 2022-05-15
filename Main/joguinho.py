@@ -218,6 +218,6 @@ while joga_dnv == 's':
             cond= True
     print("Poxa você perdeu, o país era: {0}".format(sorteado))
     joga_dnv= input("Quer jogar novamente?: [s/n] ")
-    while joga_dnv not in ["s", "n"]:
+        while joga_dnv not in ["s", "n"]:
             print ("Você não escolheu uma opção válida")
             joga_dnv= input("Quer jogar novamente?: [s/n] ")
