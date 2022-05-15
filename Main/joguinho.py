@@ -67,12 +67,12 @@ while joga_dnv == 's': #Loop de jogar o jogo
         if percentual > 0 and cor != "outras": #somente sortear as cores que tem na badeira
             lista_cor_possivel.append(cor)  
     while tentativas > 0:
-        print ("Um país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas))
+        print ("\nUm país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas))
         palavra= input("Qual seu palpite?: ") 
         if palavra not in ["desisto", "dica", "inventario"] and palavra in dados_normalizados:
             dist = haversine(raio, dados_normalizados[sorteado]['geo']['latitude'], dados_normalizados[sorteado]['geo']['longitude'], dados_normalizados[palavra]['geo']['latitude'], dados_normalizados[palavra]['geo']['longitude'] )
             if esta_na_lista(palavra, pais_utilizado): #Inserindo a função está na lista, se estiver pedir para o joagdor escolher outro
-                print ("Você já escolheu esse país, pensa em outra aí")  #Se estiver na lista ele não vai verificar dist e vai rodar o while dnv           
+                print ("\nVocê já escolheu esse país, pensa em outra aí")  #Se estiver na lista ele não vai verificar dist e vai rodar o while dnv           
             elif dist > 0: 
                 if palavra not in pais_utilizado:
                     pais_utilizado.append(palavra)
@@ -81,21 +81,23 @@ while joga_dnv == 's': #Loop de jogar o jogo
                     lista_dist_print= adiciona_em_ordem(palavra, dist, lista_distancia) #adicione em ordem os países com as distâncias
                     tentativas-=1 #diminuindo a quantidade de tentativas
                     lista_d_formatada=formatando(lista_dist_print)
-                    print(lista_d_formatada)
+                    lista_distancia_printada= ",".join(lista_d_formatada)
+                    lista_printável= lista_distancia_printada.replace(',', '\n')
+                    print("{0}Palpites e distancia:{0}{1}".format("\n", lista_printável))
             elif dist == 0 and palavra == sorteado:
-                print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
+                print ("\n*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
         elif palavra == "desisto":
-            tem_certeza= input("Tem certeza que deseja desistir? [s/n] ")
+            tem_certeza= input("\nTem certeza que deseja desistir? [s/n] \n")
             while tem_certeza not in ["s", "n"]:
-                print ("Você não escolheu uma opção válida")
+                print ("\nVocê não escolheu uma opção válida")
                 tem_certeza= input("Tem certeza que deseja desistir? [s/n] ")
             if tem_certeza == "s":
                 tentativas=0
-                print (">>>Que deselegante desistir, o país era: {0}".format(sorteado))
+                print ("\n>>>Que deselegante desistir, o país era: {0}".format(sorteado))
                 joga_dnv= input("Quer jogar novamente?: ")
                 while joga_dnv not in ["s", "n"]:
-                    print ("Você não escolheu uma opção válida")
-                    joga_dnv= input("Quer jogar novamente?: [s/n] ")
+                    print ("\nVocê não escolheu uma opção válida")
+                    joga_dnv= input("\nQuer jogar novamente?: [s/n] ")
                 if joga_dnv== "s":
                     del dados_normalizados[sorteado]
                     sorteado= sorteia_pais(dados_normalizados)
@@ -113,13 +115,14 @@ while joga_dnv == 's': #Loop de jogar o jogo
                     tentativas=0
                     joga_dnv= "n"
         elif palavra == "dica":
-            print ("Mercado de Dicas" + ("\n") + "---------------------------------------- \n{0}{1}{2}{3}{4}{5}\n ----------------------------------------".format(dica1 ,dica2, dica3, dica4, dica5, dica0))
+            print ("\n Mercado de Dicas" + ("\n") + "---------------------------------------- \n{0}{1}{2}{3}{4}{5}\n ----------------------------------------\n".format(dica1 ,dica2, dica3, dica4, dica5, dica0))
             opcoes= zero + um + dois + tres + quatro + cinco + chavef
-            qual_dica= input("Escolha sua opção: {0}".format(opcoes))
-            print("Dicas: ")
+            qual_dica= input("Escolha sua opção: {0}: ".format(opcoes))
+            print("\nDicas: ")
             opcoes_validas= opcoes.replace("[", "") 
-            opcoes_validas2= opcoes_validas.split("|") #usando replace e split para tornar opçoes uma lista com as variaveis/numero de dicas disponível
-            while qual_dica not in opcoes_validas2:
+            opcoes_validas2= opcoes_validas.replace("]", "") 
+            opcoes_validas3= opcoes_validas2.split("|") #usando replace e split para tornar opçoes uma lista com as variaveis/numero de dicas disponível
+            while qual_dica not in opcoes_validas3:
                 print ("Você não escolheu uma opção válida")
                 qual_dica= input("Escolha sua opção: {0}".format(opcoes))
             else:
@@ -135,7 +138,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                         else:
                             dica1= ""
                             um= ""
-                            print("Acabaram as cores :( ")
+                            print("\nAcabaram as cores :( ")
                             break
                 else:
                     dica1= ""
@@ -154,7 +157,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                                 dica2= ""
                                 dois= ""
                                 cond=False
-                                print("Acabaram as letras :( ")
+                                print("\nAcabaram as letras :( ")
                 else:
                     dica2= ""
                     dois= ""
@@ -167,7 +170,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             tres= ""
                             tentativas-=6
                         else:
-                            print("Você já sabe a area do país")
+                            print("\nVocê já sabe a area do país")
                 else:
                     dica3= ""
                     tres= ""
@@ -180,7 +183,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             dic_dicas.update(dic_populacao)   
                             tentativas-=5
                         else:
-                            print("Você já sabe a população do país")
+                            print("\nVocê já sabe a população do país")
                 else:
                     dica4= ""
                     quatro= ""
@@ -193,7 +196,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             tentativas-=7
                             cinco= ""
                         else:
-                            print("Você já sabe o continente do país")
+                            print("\nVocê já sabe o continente do país")
                 else:
                     dica5= ""
                     cinco= ""
@@ -203,13 +206,13 @@ while joga_dnv == 's': #Loop de jogar o jogo
         elif palavra == "inventario":
             print("\nInventário: \n {0} \n {1}\n".format(lista_d_formatada, dic_dicas))
         else:
-            print ("Você não escolheu uma opção válida")
+            print ("\nVocê não escolheu uma opção válida")
     else: #tentando criar a condição pra ele sair do jogo desistindo ou perdendo
-        print (">>> Você perdeu, o país era: {0}".format(sorteado))
+        print ("\n>>> Você perdeu, o país era: {0}".format(sorteado))
         joga_dnv= input("Quer jogar novamente?: [s/n] ")
         while joga_dnv not in ["s", "n"]:
-            print ("Você não escolheu uma opção válida")
-            joga_dnv= input("Quer jogar novamente?: [s/n] ")
+            print ("\nVocê não escolheu uma opção válida")
+            joga_dnv= input("\nQuer jogar novamente?: [s/n] ")
         if joga_dnv == "s":
             del dados_normalizados[sorteado]
             sorteado= sorteia_pais(dados_normalizados)
