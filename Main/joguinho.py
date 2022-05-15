@@ -117,10 +117,13 @@ while joga_dnv == 's': #Loop de jogar o jogo
             opcoes= zero + um + dois + tres + quatro + cinco + chavef
             qual_dica= input("Escolha sua opção: {0}".format(opcoes))
             print("Dicas: ")
-            if qual_dica != "1" and qual_dica != "2" and qual_dica != "3" and qual_dica != "4" and qual_dica != "5" and qual_dica != "0":
+            opcoes_validas= opcoes.replace("[", "") 
+            opcoes_validas2= opcoes_validas.split("|") #usando replace e split para tornar opçoes uma lista com as variaveis/numero de dicas disponível
+            while qual_dica not in opcoes_validas2:
                 print ("Você não escolheu uma opção válida")
+                qual_dica= input("Escolha sua opção: {0}".format(opcoes))
             else:
-                qual_dica = int(qual_dica)
+                qual_dica = int(qual_dica) #tornando a str que o usuário digitou em número inteiro para saber em qual if entrar
                 if tentativas >= 4:
                     if qual_dica == 1:
                         if len(lista_cor_possivel)>0:
