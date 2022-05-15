@@ -12,10 +12,13 @@ print (" ============================ " + ("\n") + "|                           
 
 sorteado= ''
 tentativas= 20
+dic_dicas= {} 
+dicas_for_real= str(dic_dicas)
 lista_cor_possivel=[]
 lista_cor_sorteada = []
 lista_letra_nova= []
 cond = True
+lista_printável= []
 lista_distancia= []
 lista_dist_print= []
 lista_dicas=[]   
@@ -77,7 +80,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
             dist = haversine(raio, dados_normalizados[sorteado]['geo']['latitude'], dados_normalizados[sorteado]['geo']['longitude'], dados_normalizados[palavra]['geo']['latitude'], dados_normalizados[palavra]['geo']['longitude'] )
             if esta_na_lista(palavra, pais_utilizado) == True: #Inserindo a função está na lista, se estiver pedir para o joagdor escolher outro
                 print ("\nVocê já escolheu esse país, pensa em outra aí")  #Se estiver na lista ele não vai verificar dist e vai rodar o while dnv           
-            elif dist > 0: 
+            elif dist > 0:
                 if palavra not in pais_utilizado:
                     pais_utilizado.append(palavra)
                     #lista_distancia.append([palavra, dist])
@@ -112,8 +115,11 @@ while joga_dnv == 's': #Loop de jogar o jogo
                     lista_dicas=[]  
                     lista_letra_nova= []
                     lista_cor_possivel=[]
+                    dic_dicas= {} 
+                    dicas_for_real= str(dic_dicas)
                     lista_cor_sorteada = []
                     pais_utilizado= []
+                    lista_printável= []
                     joga_dnv= "s"
                 else: 
                     tentativas=0
@@ -143,8 +149,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             dica1= ""
                             um= ""
                             print("\nAcabaram as cores :( ")
-                            
-                else:
+                elif tentativas < 4:
                     dica1= ""
                     um= ""
                 if tentativas >= 3:
@@ -162,7 +167,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                                 dois= ""
                                 cond=False
                                 print("\nAcabaram as letras :( ")
-                else:
+                elif tentativas < 3:
                     dica2= ""
                     dois= ""
                 if tentativas >= 6:
@@ -175,7 +180,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             tentativas-=6
                         else:
                             print("\nVocê já sabe a area do país")
-                else:
+                elif tentativas < 6:
                     dica3= ""
                     tres= ""
                 if tentativas >= 5:
@@ -188,7 +193,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             tentativas-=5
                         else:
                             print("\nVocê já sabe a população do país")
-                else:
+                elif tentativas < 5:
                     dica4= ""
                     quatro= ""
                 if tentativas >= 6:
@@ -201,7 +206,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             cinco= ""
                         else:
                             print("\nVocê já sabe o continente do país")
-                else:
+                elif tentativas < 6:
                     dica5= ""
                     cinco= ""
                 for dicas, descricao in dic_dicas.items():
@@ -228,6 +233,9 @@ while joga_dnv == 's': #Loop de jogar o jogo
             lista_cor_possivel=[]
             lista_cor_sorteada = []
             pais_utilizado= [] 
+            lista_printável= []
+            dic_dicas= {} 
+            dicas_for_real= str(dic_dicas)
             tentativas=20
             cond= True
         elif joga_dnv == "n":
