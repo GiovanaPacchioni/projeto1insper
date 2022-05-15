@@ -2,15 +2,13 @@
 from sqlalchemy import true
 from termcolor import colored #Lembrar que as cores estão nos países com dist e nas tentativas
 #Exemplo
-print(colored('Error Test!!!', 'red'))
-print(colored('Warning Test!!!', 'yellow'))
-print(colored('Success Test!!!', 'green'))
+#print(colored('Success Test!!!', 'red'))
 
 import random 
 from base_normalizada import dados_normalizados
 from Funcoes import *
 
-print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição")
+print (" ============================ " + ("\n") + "|                            |"+ ("\n") +"|" + (colored(' Bem-vindo ao Insper Países ', 'yellow')) +"|"+ ("\n")+ "|                            |"+ ("\n") + " ====" + (colored(' Design de Software ', 'blue')) + "===="+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição")
 
 sorteado= ''
 tentativas= 20
