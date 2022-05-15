@@ -9,9 +9,8 @@ def adiciona_em_ordem(pais, distancia, listaordenada):
             if distancia < listaordenada[i][1]:
                 listaordenada.insert(i, [pais, distancia])
                 break
-            elif distancia > listaordenada[i][1]:
+            elif i == len(listaordenada)-1:
                 listaordenada.append([pais, distancia])
-                break
     return listaordenada
 
 def formatando (lista_dist_print):
