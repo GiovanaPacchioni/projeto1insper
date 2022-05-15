@@ -11,22 +11,23 @@ from base_normalizada import dados_normalizados
 from Funcoes import *
 
 print ("============================" + ("\n") + "|                            |"+ ("\n") +"| Bem-vindo ao Insper Países |"+ ("\n")+ "|                            |"+ ("\n") + "==== Design de Software ==== "+ ("\n") + ("\n") +"Comandos:" + ("\n") +  "dica       - entra no mercado de dicas"  + ("\n") + "desisto    - desiste da rodada" + ("\n") + "inventario - exibe sua posição"+ ("\n") + ("\n"))
+
 sorteado= ''
 tentativas= 20
 lista_cor_possivel=[]
 lista_cor_sorteada = []
 lista_letra_nova= []
 cond = True
-#Elementos que aparecem no inventario
 lista_distancia= []
 lista_dist_print= []
-lista_dicas=[]   #substituindo o dicionario pela lista em lista ordenada -> só tirar depois de substituir
+lista_dicas=[]   
 lista_d_formatada= ""
 pais_utilizado= []
 raio= 6371 
 cond2= True
 joga_dnv= "s" #começando com a condição verdade
-while joga_dnv == 's':
+
+while joga_dnv == 's': #Loop de jogar o jogo 
     sorteado= sorteia_pais(dados_normalizados)
     dic_tds_cor=(dados_normalizados[sorteado]["bandeira"])
     lista_letra= list(dados_normalizados[sorteado]["capital"])
@@ -85,6 +86,9 @@ while joga_dnv == 's':
                 print ("*** Parabéns! Você acertou após {0} tentativas!".format(20 - tentativas))
         elif palavra == "desisto":
             tem_certeza= input("Tem certeza que deseja desistir? [s/n] ")
+            while tem_certeza not in ["s", "n"]:
+                print ("Você não escolheu uma opção válida")
+                tem_certeza= input("Tem certeza que deseja desistir? [s/n] ")
             if tem_certeza == "s":
                 tentativas=0
                 print (">>>Que deselegante desistir, o país era: {0}".format(sorteado))
@@ -93,6 +97,8 @@ while joga_dnv == 's':
                     print ("Você não escolheu uma opção válida")
                     joga_dnv= input("Quer jogar novamente?: [s/n] ")
                 if joga_dnv== "s":
+                    del dados_normalizados[sorteado]
+                    sorteado= sorteia_pais(dados_normalizados)
                     tentativas=20
                     lista_d_formatada= ""
                     lista_distancia= []
@@ -104,7 +110,8 @@ while joga_dnv == 's':
                     pais_utilizado= []
                     joga_dnv= "s"
                 else: 
-                    break
+                    tentativas=0
+                    joga_dnv= "n"
         elif palavra == "dica":
             print ("Mercado de Dicas" + ("\n") + "---------------------------------------- \n{0}{1}{2}{3}{4}{5}\n ----------------------------------------".format(dica1 ,dica2, dica3, dica4, dica5, dica0))
             opcoes= zero + um + dois + tres + quatro + cinco + chavef
@@ -194,9 +201,6 @@ while joga_dnv == 's':
             print("\nInventário: \n {0} \n {1}\n".format(lista_d_formatada, dic_dicas))
         else:
             print ("Você não escolheu uma opção válida")
-    if joga_dnv!= "s":
-        sorteado = sorteia_pais(dados_normalizados)
-        cond2= False
     else: #tentando criar a condição pra ele sair do jogo desistindo ou perdendo
         print (">>> Você perdeu, o país era: {0}".format(sorteado))
         joga_dnv= input("Quer jogar novamente?: [s/n] ")
@@ -216,8 +220,6 @@ while joga_dnv == 's':
             pais_utilizado= [] 
             tentativas=20
             cond= True
-    print("Poxa você perdeu, o país era: {0}".format(sorteado))
-    joga_dnv= input("Quer jogar novamente?: [s/n] ")
-        while joga_dnv not in ["s", "n"]:
-            print ("Você não escolheu uma opção válida")
-            joga_dnv= input("Quer jogar novamente?: [s/n] ")
+        elif joga_dnv == "n":
+            tentativas=0
+            joga_dnv= "n"
