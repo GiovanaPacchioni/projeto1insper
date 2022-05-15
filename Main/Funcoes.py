@@ -17,7 +17,7 @@ def adiciona_em_ordem(pais, distancia, listaordenada):
 def formatando (lista_dist_print):
     lista_formatada=[]
     for lista in lista_dist_print:
-        lista_formatada.append("{0} --> {1}km".format(lista[0], (int(lista[1]))))
+        lista_formatada.append("{0} --> {1} km".format(lista[0], (int(lista[1]))))
     lista_formatada2=[]
     for lista in lista_formatada:
         lista.replace(",", "\n")

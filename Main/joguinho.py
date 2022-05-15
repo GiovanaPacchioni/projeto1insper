@@ -250,19 +250,17 @@ while joga_dnv == 's': #Loop de jogar o jogo
                     um= ""
                 if tentativas >= 3:
                     if qual_dica == 2:
-                        if cond == True:
-                            if len(lista_letra)>0 and qual_dica in dic_mercado_dicas:
-                                letra_capital= (random.randint(0, len(lista_letra)-1))
-                                lista_letra_nova.append(lista_letra[letra_capital])
-                                del lista_letra[letra_capital]
-                                dic_dicas.update(dic_letra)
-                                tentativas-=3
-                            elif len(lista_letra)<=0:
-                                del dic_mercado_dicas[qual_dica]
-                                dica2= ""
-                                dois= ""
-                                cond=False
-                                print("\nAcabaram as letras :( ")
+                        if len(lista_letra)>0 and qual_dica in dic_mercado_dicas:
+                            letra_capital= (random.randint(0, len(lista_letra)-1))
+                            lista_letra_nova.append(lista_letra[letra_capital])
+                            del lista_letra[letra_capital]
+                            dic_dicas.update(dic_letra)
+                            tentativas-=3
+                        elif len(lista_letra)<=0:
+                            del dic_mercado_dicas[qual_dica]
+                            dica2= ""
+                            dois= ""
+                            print("\nAcabaram as letras :( ")
                 elif tentativas < 3:
                     dica2= ""
                     dois= ""
