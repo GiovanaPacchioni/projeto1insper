@@ -72,7 +72,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
             tentativas_p= colored(tentativas, 'blue')
         elif tentativas<=10 and tentativas>5:
             tentativas_p= colored(tentativas, 'yellow')
-        elif tentativas<5:
+        elif tentativas<=5:
             tentativas_p= colored(tentativas, 'red')
         print ("\nUm país foi escolhido, tente adivinhar!"+ ("\n") + "Você tem {0} tentativa(s)".format(tentativas_p))
         palavra= input("Qual seu palpite?: ") 
@@ -99,6 +99,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                 if joga_dnv == "s":
                     del dados_normalizados[sorteado]
                     sorteado= sorteia_pais(dados_normalizados)
+                    lista_cor_possivel=[]
                     for cor, percentual in dic_tds_cor.items(): 
                         if percentual > 0 and cor != "outras": #somente sortear as cores que tem na badeira
                             lista_cor_possivel.append(cor)  
@@ -112,7 +113,6 @@ while joga_dnv == 's': #Loop de jogar o jogo
                     lista_dist_print= []
                     lista_dicas=[]  
                     lista_letra_nova= []
-                    lista_cor_possivel=[]
                     lista_cor_sorteada = []
                     pais_utilizado= [] 
                     lista_printável= []
@@ -172,6 +172,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                     areas= (dados_normalizados[sorteado]["area"])
                     populacao= (dados_normalizados[sorteado]["populacao"])
                     continente= (dados_normalizados[sorteado]["continente"])
+                    lista_cor_possivel=[]
                     for cor, percentual in dic_tds_cor.items(): 
                         if percentual > 0 and cor != "outras": #somente sortear as cores que tem na badeira
                             lista_cor_possivel.append(cor)  
@@ -181,7 +182,6 @@ while joga_dnv == 's': #Loop de jogar o jogo
                     lista_dist_print= []
                     lista_dicas=[]  
                     lista_letra_nova= []
-                    lista_cor_possivel=[]
                     dic_dicas= {} 
                     dicas_for_real= str(dic_dicas)
                     lista_cor_sorteada = []
@@ -221,6 +221,26 @@ while joga_dnv == 's': #Loop de jogar o jogo
                     tentativas=0
                     joga_dnv= "n"
         elif palavra == "dica":
+            if tentativas < 4 and 1 in dic_mercado_dicas:
+                del dic_mercado_dicas[1]
+                dica1= ""
+                um= ""
+            if tentativas < 3 and 2 in dic_mercado_dicas:
+                del dic_mercado_dicas[2]
+                dica2= ""
+                dois= ""
+            if tentativas < 6 and 3 in dic_mercado_dicas:
+                del dic_mercado_dicas[3]
+                dica3= ""
+                tres= ""
+            if tentativas < 5 and 4 in dic_mercado_dicas:
+                del dic_mercado_dicas[4]
+                dica4= ""
+                quatro= ""
+            if tentativas < 7 and 5 in dic_mercado_dicas :
+                del dic_mercado_dicas[5]
+                dica5= ""
+                cinco= ""
             print ("\n Mercado de Dicas" + ("\n") + "---------------------------------------- \n{0}{1}{2}{3}{4}{5}\n ----------------------------------------\n".format(dica1 ,dica2, dica3, dica4, dica5, dica0))
             opcoes= zero + um + dois + tres + quatro + cinco + chavef
             qual_dica= input("Escolha sua opção: {0}: ".format(opcoes))
@@ -245,10 +265,6 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             dica1= ""
                             um= ""
                             print("\nAcabaram as cores :( ")
-                elif tentativas < 4 and 1 in dic_mercado_dicas:
-                    del dic_mercado_dicas[1]
-                    dica1= ""
-                    um= ""
                 if tentativas >= 3:
                     if qual_dica == 2:
                         if len(lista_letra)>0 and qual_dica in dic_mercado_dicas:
@@ -262,10 +278,6 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             dica2= ""
                             dois= ""
                             print("\nAcabaram as letras :( ")
-                elif tentativas < 3 and 2 in dic_mercado_dicas:
-                    del dic_mercado_dicas[2]
-                    dica2= ""
-                    dois= ""
                 if tentativas >= 6:
                     if qual_dica == 3:
                         if qual_dica in dic_mercado_dicas:
@@ -276,10 +288,6 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             tentativas-=6
                         else:
                             print("\nVocê já sabe a area do país")
-                elif tentativas < 6 and 3 in dic_mercado_dicas:
-                    del dic_mercado_dicas[3]
-                    dica3= ""
-                    tres= ""
                 if tentativas >= 5:
                     if qual_dica == 4:
                         if qual_dica in dic_mercado_dicas:
@@ -290,10 +298,6 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             tentativas-=5
                         else:
                             print("\nVocê já sabe a população do país")
-                elif tentativas < 5:
-                    del dic_mercado_dicas[4]
-                    dica4= ""
-                    quatro= ""
                 if tentativas >= 7:
                     if qual_dica == 5:
                         if qual_dica in dic_mercado_dicas:
@@ -304,10 +308,6 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             cinco= ""
                         else:
                             print("\nVocê já sabe o continente do país")
-                elif tentativas < 7 and 5 in dic_mercado_dicas :
-                    del dic_mercado_dicas[5]
-                    dica5= ""
-                    cinco= ""
                 for dicas, descricao in dic_dicas.items():
                     dicas_for_real= str("{0}: {1}").format(dicas, descricao)
                     print(dicas_for_real)
@@ -329,6 +329,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
             areas= (dados_normalizados[sorteado]["area"])
             populacao= (dados_normalizados[sorteado]["populacao"])
             continente= (dados_normalizados[sorteado]["continente"])
+            lista_cor_possivel=[]
             for cor, percentual in dic_tds_cor.items(): 
                 if percentual > 0 and cor != "outras": #somente sortear as cores que tem na badeira
                     lista_cor_possivel.append(cor)  
@@ -337,7 +338,6 @@ while joga_dnv == 's': #Loop de jogar o jogo
             lista_dist_print= []
             lista_dicas=[]  
             lista_letra_nova= []
-            lista_cor_possivel=[]
             lista_cor_sorteada = []
             pais_utilizado= [] 
             lista_printável= []
