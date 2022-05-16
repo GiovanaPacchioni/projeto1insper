@@ -246,6 +246,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             um= ""
                             print("\nAcabaram as cores :( ")
                 elif tentativas < 4:
+                    del dic_mercado_dicas[1]
                     dica1= ""
                     um= ""
                 if tentativas >= 3:
@@ -262,6 +263,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             dois= ""
                             print("\nAcabaram as letras :( ")
                 elif tentativas < 3:
+                    del dic_mercado_dicas[2]
                     dica2= ""
                     dois= ""
                 if tentativas >= 6:
@@ -275,6 +277,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                         else:
                             print("\nVocê já sabe a area do país")
                 elif tentativas < 6:
+                    del dic_mercado_dicas[3]
                     dica3= ""
                     tres= ""
                 if tentativas >= 5:
@@ -288,6 +291,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                         else:
                             print("\nVocê já sabe a população do país")
                 elif tentativas < 5:
+                    del dic_mercado_dicas[4]
                     dica4= ""
                     quatro= ""
                 if tentativas >= 6:
@@ -301,6 +305,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                         else:
                             print("\nVocê já sabe o continente do país")
                 elif tentativas < 6:
+                    del dic_mercado_dicas[5]
                     dica5= ""
                     cinco= ""
                 for dicas, descricao in dic_dicas.items():
