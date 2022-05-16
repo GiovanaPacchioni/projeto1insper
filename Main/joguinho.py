@@ -245,7 +245,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             dica1= ""
                             um= ""
                             print("\nAcabaram as cores :( ")
-                elif tentativas < 4:
+                elif tentativas < 4 and 1 in dic_mercado_dicas:
                     del dic_mercado_dicas[1]
                     dica1= ""
                     um= ""
@@ -262,7 +262,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             dica2= ""
                             dois= ""
                             print("\nAcabaram as letras :( ")
-                elif tentativas < 3:
+                elif tentativas < 3 and 2 in dic_mercado_dicas:
                     del dic_mercado_dicas[2]
                     dica2= ""
                     dois= ""
@@ -276,7 +276,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             tentativas-=6
                         else:
                             print("\nVocê já sabe a area do país")
-                elif tentativas < 6:
+                elif tentativas < 6 and 3 in dic_mercado_dicas:
                     del dic_mercado_dicas[3]
                     dica3= ""
                     tres= ""
@@ -294,7 +294,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                     del dic_mercado_dicas[4]
                     dica4= ""
                     quatro= ""
-                if tentativas >= 6:
+                if tentativas >= 7:
                     if qual_dica == 5:
                         if qual_dica in dic_mercado_dicas:
                             del dic_mercado_dicas[qual_dica]
@@ -304,7 +304,7 @@ while joga_dnv == 's': #Loop de jogar o jogo
                             cinco= ""
                         else:
                             print("\nVocê já sabe o continente do país")
-                elif tentativas < 6:
+                elif tentativas < 7 and 5 in dic_mercado_dicas :
                     del dic_mercado_dicas[5]
                     dica5= ""
                     cinco= ""
